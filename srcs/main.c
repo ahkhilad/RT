@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-int     key_press(int keycode, void *p)
+int         key_press(int keycode, void *p)
 {
     t_mx    *r;
 
@@ -22,16 +22,17 @@ int     key_press(int keycode, void *p)
     return (0);
 }
 
-double  magnitude(t_vec v)
+double      magnitude(t_vec v)
 {
     t_vec   c;
+    
     c.x = v.x * v.x;
     c.y = v.y * v.y;
     c.z = v.z * v.z;
     return (sqrt(c.x + c.y + c.z));
 }
 
-t_vec  normalize(t_vec v)
+t_vec       normalize(t_vec v)
 {
     double  magnitude;
 
@@ -42,7 +43,7 @@ t_vec  normalize(t_vec v)
     return (v);
 }
 
-t_vec   negative(t_vec v)
+t_vec       negative(t_vec v)
 {
     v.x *= -1;
     v.y *= -1;
@@ -50,12 +51,12 @@ t_vec   negative(t_vec v)
     return (v);
 }
 
-double  dotproduct(t_vec a, t_vec b)
+double      dotproduct(t_vec a, t_vec b)
 {
     return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }
 
-t_vec   crossproduct(t_vec a, t_vec b)
+t_vec       crossproduct(t_vec a, t_vec b)
 {
     t_vec   c;
 
@@ -65,7 +66,7 @@ t_vec   crossproduct(t_vec a, t_vec b)
     return (c);
 }
 
-t_vec   vectoradd(t_vec a, t_vec b)
+t_vec       vectoradd(t_vec a, t_vec b)
 {
     t_vec   c;
 
@@ -75,7 +76,7 @@ t_vec   vectoradd(t_vec a, t_vec b)
     return (c);
 }
 
-t_vec   vectormulti(double scalar)
+t_vec       vectormulti(double scalar)
 {
     t_vec   c;
 
@@ -85,7 +86,7 @@ t_vec   vectormulti(double scalar)
     return (c);
 }
 
-double  intersections(t_ray *r, t_plane *p)
+double      find_intersection(t_ray *r, t_plane *p)
 {
     t_vec   r_dir;
     double  a;
@@ -107,7 +108,82 @@ double  intersections(t_ray *r, t_plane *p)
     return (0);
 }
 
-t_vec   normal_vec_at(t_vec point)
+t_vec       ft_normal_at(t_vec point, t_sphere sphere)
+{
+    t_vec   normal_vect;
+
+    normal_vect = normalize(negative(vectoradd(point, sphere.center)));
+    return (normal_vect);
+}
+
+double      find_intersection_sphere(t_ray ray, t_sphere sphere)
+{
+    t_vec   ray_origin;
+    double  ray_origin_x;
+    double  ray_origin_y;
+    double  ray_origin_z;
+    t_vec   ray_direction;
+    double  ray_direction_x;
+    double  ray_direction_y;
+    double  ray_direction_z;
+    t_vec   sphere_center;
+    double  sphere_center_x;
+    double  sphere_center_y;
+    double  sphere_center_z;
+    double  a;
+    double  b;
+    double  c;
+    double  discriminant;
+    double  root_1;
+    double  root_2;
+
+    ray_origin = ray.origin;
+    ray_origin_x = ray_origin.x;
+    ray_origin_y = ray_origin.y;
+    ray_origin_z = ray_origin.z;
+
+    ray_direction = ray.direction;
+    ray_direction_x = ray_direction.x;
+    ray_direction_y = ray_direction.y;
+    ray_direction_z = ray_direction.z;
+
+    sphere_center = sphere.center;
+    sphere_center_x = sphere_center.x;
+    sphere_center_y = sphere_center.y;
+    sphere_center_z = sphere_center.z;
+    a = 1;  // normalized
+    b = (2 * (ray_origin_x - sphere_center_x) * ray_direction_x)\
+    + (2 * (ray_origin_y - sphere_center_y) * ray_direction_y)\
+    + (2 * (ray_origin_z - sphere_center_z) * ray_direction_z);
+    c = pow((ray_origin_x - sphere_center_x), 2)\
+    + pow((ray_origin_y - sphere_center_y), 2)\
+    + pow((ray_origin_z - sphere_center_z), 2) - (sphere.radius * sphere.radius);
+    discriminant = (b * b) - (4 * c);
+    if (discriminant > 0)
+    {
+        // the ray intersects the sphere
+        // first root
+        root_1 = ((-1 * b - sqrt(discriminant)) / 2) - 0.000001;
+        if (root_1 > 0)
+        {
+            // the first root is the smallest positive root
+            return (root_1);
+        }
+        else
+        {
+            // the second root is the smallest positive root
+            root_2 = ((sqrt(discriminant) - b) / 2) - 0.000001;
+            return (root_2);
+        }    
+    }
+    else
+    {
+        // the ray missed the sphere
+        return (-1);
+    }
+}
+
+t_vec       normal_vec_at(t_vec point)
 {
     t_plane     *p;
 
@@ -117,49 +193,94 @@ t_vec   normal_vec_at(t_vec point)
     return (p->normal);
 }
 
-// t_vec   n_vec_at(t_vec point)
-// {
-
-// }
-
-// ***********************************************************
-
-// t_cam   camera(t_cam v)
-// {
-//     t_cam   n;
-
-//     n.cam_pos = v.cam_pos;
-//     n.cam_dir = v.cam_dir;
-//     n.cam_right = v.cam_right;
-//     n.cam_down = v.cam_down;
-//     return (n);
-// }
-
-int     main()
+void        ft_add_node_at_last(t_lst **head, t_lst *new)
 {
-    // t_ray   s;
+	t_lst *tmp;
 
-    // s.r_src.x = WIN_W / 2;
-    // s.r_src.y = WIN_H / 2;
-    // s.r_dir.x = WIN_W / 2;
-    // s.r_dir.y = (WIN_H / 4) * 3;
+	tmp = *head;
+    if (!tmp)
+        *head = new;
+    else
+		ft_add_node_at_last(&(tmp->next), new);
+}
 
-    // normilizing vectors;
-    // s.src_length = sqrt(pow(s.r_src.x, 2) + pow(s.r_src.y, 2));
-    // s.dir_length = sqrt(pow(s.r_dir.x, 2) + pow(s.r_dir.y, 2));
-    // s.normalize_src = pow((s.r_src.x / s.src_length), 2) + pow((s.r_src.y / s.src_length), 2);
-    // s.normalize_dir = pow((s.r_dir.x / s.dir_length), 2) + pow((s.r_dir.y / s.dir_length), 2);
-    // ft_putnbr(s.normalize_src);
-    // ft_putchar('\n');
-    // ft_putnbr(s.normalize_dir);
-    //if (s.normalize_src == 1)
-        //vector is normalized
-    //else
-        //vector is not normalized
-    //if (s.normalize_dir == 1)
-        //vector is normalized
-    //else
-        //vector is not normalized
+void        ft_add_node_at_last_obj(t_object **head, t_object *new)
+{
+	t_object *tmp;
+
+	tmp = *head;
+    if (!tmp)
+        *head = new;
+    else
+		ft_add_node_at_last_obj(&(tmp->next), new);
+}
+
+t_object    *ft_malloc_node_obj(void *obj, int type)
+{
+    t_object    *node;
+
+    node = (t_object*)malloc(sizeof(t_object));
+    node->object = obj;
+    node->type = type;
+    node->next = NULL;
+    return(node);
+}
+
+t_lst    *ft_malloc_node_lst(double var)
+{
+    t_lst    *node;
+
+    node = (t_lst*)malloc(sizeof(t_lst));
+    node->var = var;
+    node->next = NULL;
+    return(node);
+}
+
+
+
+// t_sphere *ft_get_data_sphere()
+// {
+//     char    *line;
+//     t_sphere *sp;
+//     sp = malloc(sizeof(t_sphere));
+//     while (get_next_line(line))
+//     {
+//         sp->radius = 5;
+//         sp->center = (t_vec){10,0,1};
+//         free(line);
+//     }
+// }
+
+// void ft_parse_file(t_list *obj, char *line)
+// {
+//     void *content;
+//     if (strcmp(line, 'sphere'))
+//     {
+//         content = ft_get_data_sphere();
+//         obj = ft_lstnew(content, SPHERE);
+//     }
+//     // else return error 
+// }
+
+// void    make_list()
+// {
+//     t_list *head = NULL;
+//     t_list *obj;
+//     char    *line;
+//     while (get_next_line(line))
+//     {
+//         ft_parse_file(&obj, line);
+//             // return ('error')
+//         ft_lstadd(&head, obj);
+//         obj = obj->next;
+//         free(line);
+//     }
+//     exit(1);
+// }
+
+
+int         main(void)
+{
     t_mx        r;
     t_cam       d;
     t_cam       n;
@@ -181,6 +302,9 @@ int     main()
     t_light     light;
     t_sphere    sphere;
     t_plane     plane;
+    t_object    *head;
+    int         index;
+    int         object_index;
     int         i;
     int         j;
     int         color;
@@ -210,7 +334,7 @@ int     main()
     light_pos.y = 10;
     light_pos.z = -10;
 
-    // light------------
+    // light_color------------
     
     w_light.red = 1.0;
     w_light.green = 1.0;
@@ -235,34 +359,25 @@ int     main()
     maroon_c.green = 0.25;
     maroon_c.blue = 0.25;
     maroon_c.special = 0;
-    light.position.x = light_pos.x;
-    light.position.y = light_pos.y;
-    light.position.z = light_pos.z;
-    light.colour.red = w_light.red;
-    light.colour.green = w_light.green;
-    light.colour.blue = w_light.blue;
-    light.colour.special = w_light.special;
+
+    // light------------
+
+    light.position = light_pos;
+    light.colour = w_light;
 
     // objects----------
 
-    sphere.center.x = o.x;
-    sphere.center.y = o.y;
-    sphere.center.z = o.z;
+    sphere.center = o;
     sphere.radius = 1.0;
-    sphere.colour.red = green_c.red;
-    sphere.colour.green = green_c.green;
-    sphere.colour.blue = green_c.blue;
-    sphere.colour.special = green_c.special;
-    plane.normal.x = b.x;
-    plane.normal.y = b.y;
-    plane.normal.z = b.z;
+    sphere.colour = green_c;
+    plane.normal = b;
     plane.distance = -1;
-    plane.colour.red = maroon_c.red;
-    plane.colour.green = maroon_c.green;
-    plane.colour.blue = maroon_c.blue;
-    plane.colour.special = maroon_c.special;
+    plane.colour = maroon_c;
 
     // -----------------
+
+    ft_add_node_at_last_obj(&head, ft_malloc_node_obj(&sphere, SPHERE));
+    ft_add_node_at_last_obj(&head, ft_malloc_node_obj(&plane, PLANE));
 
     look_at.x = 0;
     look_at.y = 0;
@@ -286,6 +401,7 @@ int     main()
     d.cam_right = normalize(crossproduct(b, d.cam_dir));
     d.cam_down = crossproduct(d.cam_right, d.cam_dir);
     n = d;
+
     while (i < WIN_W)
     {
         j = 0;
@@ -319,6 +435,16 @@ int     main()
             cam_ray.direction = cam_ray_dir;
 
             // ****************************************************
+            
+            index = 0;
+
+            // while (index < 2)
+            // {
+            //     // ************************** something here
+            //     [index] = ;
+            //     index += 1;
+            // }
+            // object_index = winning_object_index();
 
             if ((i >= (WIN_W / 4) && i <= (WIN_W - (WIN_W / 4))) && (j >= (WIN_H / 4) && j <= (WIN_H - (WIN_H / 4))))
                 r.rt[color] = 0xff0055;

@@ -14,7 +14,7 @@ NAME = RTv1
 
 LFT = libft/libft.a
 
-SRCS = ./srcs/main.c
+SRCS = ./srcs/main1.c ./srcs/parser.c
 
 CC = gcc
 
