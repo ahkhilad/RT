@@ -23,6 +23,10 @@ int		ft_open(char *str, t_mx *v)
 	int		y_size;
     char    *sphere;
     char    *plane;
+    char    *cone;
+    char    *cylinder;
+    char    *light;
+    char    *camera;
 	char	*tmp;
 	char	*line;
 	char	**blocks;
@@ -40,13 +44,11 @@ int		ft_open(char *str, t_mx *v)
 		line = ft_strjoin(line, buff);
 		free(tmp);
 	}
-    //ft_putstr(line);
 	if (ft_strlen(line) == 0)
 		return 0;
 	tmp = line;
 	blocks = ft_strsplit(line, '.');
 	free(tmp);
-    //ft_putstr(blocks[1]);
 	x_size = 0;
 	while (blocks[x_size] != NULL)
 		x_size++;
@@ -65,6 +67,10 @@ int		ft_open(char *str, t_mx *v)
     }
     sphere = "sphere";
     plane = "plane";
+    cylinder = "cylinder";
+    cone = "cone";
+    camera = "camera";
+    light = "light";
     int l = 0;
     int n;
     while (l < x_size && obj_spec[l])
