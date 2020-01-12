@@ -28,6 +28,15 @@
 # include <time.h>
 # include "../libft/libft.h"
 
+typedef struct	s_base
+{
+	int			i;
+	int			p;
+	int			rt;
+	int			n;
+	int			somme;
+}				t_base;
+
 typedef struct          s_lst
 {
     double              var;
