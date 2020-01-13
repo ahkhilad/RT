@@ -72,33 +72,32 @@ int		ft_open(char *str, t_mx *v)
 	char	buff[BUFF_SIZE + 1];
     int     b;
     int     n;
+    
+    t_sphere    s;
+    char        **s_center;
+    int         s_color;
 
-    char    **s_center;
-    double  s_radius;
-    int     s_color;
+    t_plane     p;
+    char        **p_normal;
+    int         p_color;
 
-    char    **p_normal;
-    double  p_distance;
-    int     p_color;
+    t_cylinder  cy;
+    char        **cy_center;
+    char        **cy_direction;
+    int         cy_color;
 
-    char    **cy_center;
-    char    **cy_direction;
-    double  cy_radius;
-    double  cy_height;
-    int     cy_color;
+    t_cone      co;
+    char        **co_center;
+    char        **co_direction;
+    int         co_color;
 
-    char    **co_center;
-    char    **co_direction;
-    double  co_radius;
-    double  co_angle;
-    double  co_height;
-    int     co_color;
+    t_cam       ca;
+    char        **ca_position;
+    char        **ca_direction;
 
-    char    **ca_position;
-    char    **ca_direction;
-
-    char    **l_position;
-    int     l_color;
+    t_light     li;
+    char        **l_position;
+    int         l_color;
 
 	fd = open(str, O_RDONLY);
 	if (read(fd, buff, 0) < 0)
@@ -147,46 +146,107 @@ int		ft_open(char *str, t_mx *v)
             // ft_putendl(all[b][n]);   
             if (ft_strstr(all[b][n], sphere))
             {
-                s_center = ft_strsplit(all[b][++n], ' ');
-                s_radius = ft_atoi(all[b][++n]);
-                s_color = ft_special_atoi_base(all[b][++n]);
-                ft_putnbr(s_radius);
-                // printf("\n");
-                // ft_putnbr(s_color);
+                if (ft_strcmp(all[b][n], sphere) == 0)
+                {
+                    s_center = ft_strsplit(all[b][++n], ' ');
+                    s.center.x = ft_atoi(s_center[0]);
+                    s.center.y = ft_atoi(s_center[1]);
+                    s.center.z = ft_atoi(s_center[2]);
+                    s.radius = ft_atoi(all[b][++n]);
+                    s_color = ft_special_atoi_base(all[b][++n]);
+                    // ft_putnbr(s_color);
+                }
+                else
+                    return (0);                
+                
             }
             else if (ft_strstr(all[b][n], plane))
             {
-                p_normal = ft_strsplit(all[b][++n], ' ');
-                p_distance = ft_atoi(all[b][++n]);
-                p_color = ft_special_atoi_base(all[b][++n]);
+                if (ft_strcmp(all[b][n], plane) == 0)
+                {
+                    p_normal = ft_strsplit(all[b][++n], ' ');
+                    p.normal.x = ft_atoi(p_normal[0]);
+                    p.normal.y = ft_atoi(p_normal[1]);
+                    p.normal.z = ft_atoi(p_normal[2]);
+                    p.distance = ft_atoi(all[b][++n]);
+                    p_color = ft_special_atoi_base(all[b][++n]);
+                }
+                else
+                    return (0);
             }
             else if (ft_strstr(all[b][n], cylinder))
             {
-                cy_center = ft_strsplit(all[b][++n], ' ');
-                cy_direction = ft_strsplit(all[b][++n], ' ');
-                cy_radius = ft_atoi(all[b][++n]);
-                cy_height = ft_atoi(all[b][++n]);
-                cy_color = ft_special_atoi_base(all[b][++n]);
+                if (ft_strcmp(all[b][n], cylinder) == 0)
+                {
+                    cy_center = ft_strsplit(all[b][++n], ' ');
+                    cy.center.x = ft_atoi(cy_center[0]);
+                    cy.center.y = ft_atoi(cy_center[1]);
+                    cy.center.z = ft_atoi(cy_center[2]);
+                    cy_direction = ft_strsplit(all[b][++n], ' ');
+                    cy.direction.x = ft_atoi(cy_direction[0]);
+                    cy.direction.y = ft_atoi(cy_direction[1]);
+                    cy.direction.z = ft_atoi(cy_direction[2]);
+                    cy.radius = ft_atoi(all[b][++n]);
+                    cy.height = ft_atoi(all[b][++n]);
+                    cy_color = ft_special_atoi_base(all[b][++n]);
+                }
+                else
+                    return (0);
             }
             else if (ft_strstr(all[b][n], cone))
             {
-                co_center = ft_strsplit(all[b][++n], ' ');
-                co_direction = ft_strsplit(all[b][++n], ' ');
-                co_radius = ft_atoi(all[b][++n]);
-                co_angle = ft_atoi(all[b][++n]);
-                co_height = ft_atoi(all[b][++n]);
-                co_color = ft_special_atoi_base(all[b][++n]);
-                
+                if (ft_strcmp(all[b][n], cone) == 0)
+                {
+                    co_center = ft_strsplit(all[b][++n], ' ');
+                    co.center.x = ft_atoi(co_center[0]);
+                    co.center.y = ft_atoi(co_center[1]);
+                    co.center.z = ft_atoi(co_center[2]);
+                    co_direction = ft_strsplit(all[b][++n], ' ');
+                    co.direction.x = ft_atoi(co_direction[0]);
+                    co.direction.y = ft_atoi(co_direction[1]);
+                    co.direction.z = ft_atoi(co_direction[2]);
+                    co.radius = ft_atoi(all[b][++n]);
+                    co.angle = ft_atoi(all[b][++n]);
+                    co.height = ft_atoi(all[b][++n]);
+                    co_color = ft_special_atoi_base(all[b][++n]);
+                    // ft_putnbr(co.height);
+                    // printf("\n");
+                    ft_putnbr(co.direction.z);
+                    // printf("\n");
+                    // ft_putnbr(co_color);
+                }
+                else
+                    return (0);
             }
             else if (ft_strstr(all[b][n], camera))
             {
-                ca_position = ft_strsplit(all[b][++n], ' ');
-                ca_direction = ft_strsplit(all[b][++n], ' ');
+                if (ft_strcmp(all[b][n], camera) == 0)
+                {
+                    ca_position = ft_strsplit(all[b][++n], ' ');
+                    ca.position.x = ft_atoi(ca_position[0]);
+                    ca.position.y = ft_atoi(ca_position[1]);
+                    ca.position.z = ft_atoi(ca_position[2]);
+                    ca_direction = ft_strsplit(all[b][++n], ' ');
+                    ca.direction.x = ft_atoi(ca_direction[0]);
+                    ca.direction.y = ft_atoi(ca_direction[1]);
+                    ca.direction.z = ft_atoi(ca_direction[2]);
+                }
+                else
+                    return (0);
             }
             else if (ft_strstr(all[b][n], light))
             {
-                l_position = ft_strsplit(all[b][++n], ' ');
-                l_color = ft_special_atoi_base(all[b][++n]);
+                if (ft_strcmp(all[b][n], light) == 0)
+                {
+                    l_position = ft_strsplit(all[b][++n], ' ');
+                    li.position.x = ft_atoi(l_position[0]);
+                    li.position.y = ft_atoi(l_position[1]);
+                    li.position.z = ft_atoi(l_position[2]);
+                    l_color = ft_special_atoi_base(all[b][++n]);
+                    // ft_putnbr(li.position.z);
+                }
+                else
+                    return (0);
             }
             else
                 return (0);

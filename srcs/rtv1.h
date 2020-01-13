@@ -85,18 +85,31 @@ typedef struct          s_plane
     t_col               colour;
 }                       t_plane;
 
-typedef struct          s_ray
+typedef struct          s_cylinder
 {
-    t_vec               origin;
+    t_vec               center;
     t_vec               direction;
-}                       t_ray;
+    double              radius;
+    double              height;
+    t_col               colour;
+}                       t_cylinder;
+
+typedef struct          s_cone
+{
+    t_vec               center;
+    t_vec               direction;
+    double              radius;
+    double              angle;
+    double              height;
+    t_col               colour;
+}                       t_cone;
 
 typedef struct          s_cam
 {
-    t_vec               cam_pos;
-    t_vec               cam_dir;
-    t_vec               cam_down;
-    t_vec               cam_right;
+    t_vec               position;
+    t_vec               direction;
+    // t_vec               cam_down;
+    // t_vec               cam_right;
 }                       t_cam;
 
 typedef struct          s_mx
