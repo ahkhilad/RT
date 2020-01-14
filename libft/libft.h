@@ -31,6 +31,7 @@ char			*ft_strcpy(char *dst, const char *src);
 int				ft_strcmp(const char *s1, const char *s2);
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
+double			ft_atof(const char *str);
 int				ft_atoi(const char *str);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
