@@ -58,7 +58,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its radius !"
             read -p "radius = " radius
             while [ true ]
@@ -73,10 +73,10 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$radius" >> ./"$file_name_str".conf
+            echo -e "$radius" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
-            echo -e "\t$color" >> ./"$file_name_str".conf
+            echo -e "$color" >> ./"$file_name_str".conf
             echo -e ";" >> ./"$file_name_str".conf
         add_new_element_function
         elif [ $option == "plane" ];
@@ -121,7 +121,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its distance !"
             read -p "distance = " distance
             while [ true ]
@@ -136,10 +136,10 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$distance" >> ./"$file_name_str".conf
+            echo -e "$distance" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
-            echo -e "\t$color" >> ./"$file_name_str".conf
+            echo -e "$color" >> ./"$file_name_str".conf
             echo -e ";" >> ./"$file_name_str".conf
         add_new_element_function
         elif [ $option == "light" ];
@@ -184,10 +184,10 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
-            echo -e "\t$color" >> ./"$file_name_str".conf
+            echo -e "$color" >> ./"$file_name_str".conf
             echo -e ";" >> ./"$file_name_str".conf
         add_new_element_function
         elif [ $option == "cylinder" ];
@@ -232,7 +232,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its direction vector"
             read -p "x = " x
             while [ true ]
@@ -273,7 +273,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its radius !"
             read -p "radius = " radius
             while [ true ]
@@ -288,7 +288,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$radius" >> ./"$file_name_str".conf
+            echo -e "$radius" >> ./"$file_name_str".conf
             echo -e "please add its height !"
             read -p "height = " height
             while [ true ]
@@ -303,10 +303,10 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$height" >> ./"$file_name_str".conf
+            echo -e "$height" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
-            echo -e "\t$color" >> ./"$file_name_str".conf
+            echo -e "$color" >> ./"$file_name_str".conf
             echo -e ";" >> ./"$file_name_str".conf
         add_new_element_function
         elif [ $option == "cone" ];
@@ -351,7 +351,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its direction vector"
             read -p "x = " x
             while [ true ]
@@ -392,7 +392,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its radius !"
             read -p "radius = " radius
             while [ true ]
@@ -407,7 +407,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$radius" >> ./"$file_name_str".conf
+            echo -e "$radius" >> ./"$file_name_str".conf
             echo -e "please add its angle !"
             read -p "angle = " angle
             while [ true ]
@@ -422,7 +422,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$angle" >> ./"$file_name_str".conf
+            echo -e "$angle" >> ./"$file_name_str".conf
             echo -e "please add its height !"
             read -p "height = " height
             while [ true ]
@@ -437,10 +437,10 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$height" >> ./"$file_name_str".conf
+            echo -e "$height" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
-            echo -e "\t$color" >> ./"$file_name_str".conf
+            echo -e "$color" >> ./"$file_name_str".conf
             echo -e ";" >> ./"$file_name_str".conf
         add_new_element_function
         elif [ $option == "camera" ];
@@ -485,7 +485,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its direction vector !"
             read -p "x = " x
             while [ true ]
@@ -526,7 +526,7 @@ scene_element_options() {
                 break
                 fi
             done
-            echo -e "\t$x $y $z" >> ./"$file_name_str".conf
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e ";" >> ./"$file_name_str".conf
         add_new_element_function
         fi

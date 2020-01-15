@@ -72,7 +72,9 @@ int		ft_open(char *str, t_mx *v)
 	char	buff[BUFF_SIZE + 1];
     int     b;
     int     n;
-    
+    int     vec1;
+    int     vec2;
+
     t_sphere    s;
     char        **s_center;
     int         s_color;
@@ -138,6 +140,7 @@ int		ft_open(char *str, t_mx *v)
     camera = "camera";
     light = "light";
     b = 0;
+    i = 0;
     while (b < x_size && all[b])
     {
         n = 0;
@@ -149,25 +152,60 @@ int		ft_open(char *str, t_mx *v)
                 if (ft_strcmp(all[b][n], sphere) == 0)
                 {
                     s_center = ft_strsplit(all[b][++n], ' ');
-                    s.center.x = ft_atof(s_center[0]);
-                    s.center.y = ft_atof(s_center[1]);
-                    s.center.z = ft_atof(s_center[2]);
-                    s.radius = ft_atof(all[b][++n]);
+                    vec1 = 0;
+                    while (s_center[vec1])
+                        vec1++;
+                    if (vec1 > 3)
+                        return (0);
+                    if (ft_str_is_number(s_center[0]))
+                        s.center.x = ft_atof(s_center[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(s_center[1]))
+                        s.center.y = ft_atof(s_center[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(s_center[2]))
+                        s.center.z = ft_atof(s_center[2]);
+                    else
+                        return (0);
+                    ++n;
+                    if (ft_str_is_number(all[b][n]))
+                        s.radius = ft_atof(all[b][n]);
+                    else
+                        return (0);
                     s_color = ft_special_atoi_base(all[b][++n]);
                 }
                 else
-                    return (0);                
-                
+                    return (0);
             }
             else if (ft_strstr(all[b][n], plane))
             {
                 if (ft_strcmp(all[b][n], plane) == 0)
                 {
                     p_normal = ft_strsplit(all[b][++n], ' ');
-                    p.normal.x = ft_atof(p_normal[0]);
-                    p.normal.y = ft_atof(p_normal[1]);
-                    p.normal.z = ft_atof(p_normal[2]);
-                    p.distance = ft_atof(all[b][++n]);
+                    vec1 = 0;
+                    while (p_normal[vec1])
+                        vec1++;
+                    if (vec1 > 3)
+                        return (0);
+                    if (ft_str_is_number(p_normal[0]))
+                        p.normal.x = ft_atof(p_normal[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(p_normal[1]))
+                        p.normal.y = ft_atof(p_normal[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(p_normal[2]))
+                        p.normal.z = ft_atof(p_normal[2]);
+                    else
+                        return (0);
+                    ++n;
+                    if (ft_str_is_number(all[b][n]))
+                        p.distance = ft_atof(all[b][n]);
+                    else
+                        return (0);
                     p_color = ft_special_atoi_base(all[b][++n]);
                 }
                 else
@@ -178,15 +216,51 @@ int		ft_open(char *str, t_mx *v)
                 if (ft_strcmp(all[b][n], cylinder) == 0)
                 {
                     cy_center = ft_strsplit(all[b][++n], ' ');
-                    cy.center.x = ft_atof(cy_center[0]);
-                    cy.center.y = ft_atof(cy_center[1]);
-                    cy.center.z = ft_atof(cy_center[2]);
+                    vec1 = 0;
+                    while (cy_center[vec1])
+                        vec1++;
+                    if (vec1 > 3)
+                        return (0);
+                    if (ft_str_is_number(cy_center[0]))
+                        cy.center.x = ft_atof(cy_center[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(cy_center[1]))
+                        cy.center.y = ft_atof(cy_center[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(cy_center[2]))
+                        cy.center.z = ft_atof(cy_center[2]);
+                    else
+                        return (0);
                     cy_direction = ft_strsplit(all[b][++n], ' ');
-                    cy.direction.x = ft_atof(cy_direction[0]);
-                    cy.direction.y = ft_atof(cy_direction[1]);
-                    cy.direction.z = ft_atof(cy_direction[2]);
-                    cy.radius = ft_atof(all[b][++n]);
-                    cy.height = ft_atof(all[b][++n]);
+                    vec2 = 0;
+                    while (cy_direction[vec2])
+                        vec2++;
+                    if (vec2 > 3)
+                        return (0);
+                    if (ft_str_is_number(cy_direction[0]))
+                        cy.direction.x = ft_atof(cy_direction[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(cy_direction[1]))
+                        cy.direction.y = ft_atof(cy_direction[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(cy_direction[2]))
+                        cy.direction.z = ft_atof(cy_direction[2]);
+                    else
+                        return (0);
+                    ++n;
+                    if (ft_str_is_number(all[b][n]))
+                        cy.radius = ft_atof(all[b][n]);
+                    else
+                        return (0);
+                    ++n;
+                    if (ft_str_is_number(all[b][n]))
+                        cy.height = ft_atof(all[b][n]);
+                    else
+                        return (0);
                     cy_color = ft_special_atoi_base(all[b][++n]);
                 }
                 else
@@ -197,16 +271,56 @@ int		ft_open(char *str, t_mx *v)
                 if (ft_strcmp(all[b][n], cone) == 0)
                 {
                     co_center = ft_strsplit(all[b][++n], ' ');
-                    co.center.x = ft_atof(co_center[0]);
-                    co.center.y = ft_atof(co_center[1]);
-                    co.center.z = ft_atof(co_center[2]);
+                    vec1 = 0;
+                    while (co_center[vec1])
+                        vec1++;
+                    if (vec1 > 3)
+                        return (0);
+                    if (ft_str_is_number(co_center[0]))
+                        co.center.x = ft_atof(co_center[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(co_center[1]))
+                        co.center.y = ft_atof(co_center[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(co_center[2]))
+                        co.center.z = ft_atof(co_center[2]);
+                    else
+                        return (0);
                     co_direction = ft_strsplit(all[b][++n], ' ');
-                    co.direction.x = ft_atof(co_direction[0]);
-                    co.direction.y = ft_atof(co_direction[1]);
-                    co.direction.z = ft_atof(co_direction[2]);
-                    co.radius = ft_atof(all[b][++n]);
-                    co.angle = ft_atof(all[b][++n]);
-                    co.height = ft_atof(all[b][++n]);
+                    vec2 = 0;
+                    while (co_direction[vec2])
+                        vec2++;
+                    if (vec2 > 3)
+                        return (0);
+                    if (ft_str_is_number(co_direction[0]))
+                        co.direction.x = ft_atof(co_direction[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(co_direction[1]))
+                        co.direction.y = ft_atof(co_direction[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(co_direction[2]))
+                        co.direction.z = ft_atof(co_direction[2]);
+                    else
+                        return (0);
+                    ++n;
+                    if (ft_str_is_number(all[b][n]))
+                        co.radius = ft_atof(all[b][n]);
+                    else
+                        return (0);
+                    ++n;
+                    if (ft_str_is_number(all[b][n]))
+                        co.angle = ft_atof(all[b][n]);
+                    else
+                        return (0);
+                    ++n;
+                    if (ft_str_is_number(all[b][n]))
+                        co.height = ft_atof(all[b][n]);
+                    else
+                        return (0);
                     co_color = ft_special_atoi_base(all[b][++n]);
                     // printf("%f", co.center.y);
                     // printf("\n");
@@ -222,13 +336,41 @@ int		ft_open(char *str, t_mx *v)
                 if (ft_strcmp(all[b][n], camera) == 0)
                 {
                     ca_position = ft_strsplit(all[b][++n], ' ');
-                    ca.position.x = ft_atof(ca_position[0]);
-                    ca.position.y = ft_atof(ca_position[1]);
-                    ca.position.z = ft_atof(ca_position[2]);
+                    vec1 = 0;
+                    while (ca_position[vec1])
+                        vec1++;
+                    if (vec1 > 3)
+                        return (0);
+                    if (ft_str_is_number(ca_position[0]))
+                        ca.position.x = ft_atof(ca_position[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(ca_position[1]))
+                        ca.position.y = ft_atof(ca_position[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(ca_position[2]))
+                        ca.position.z = ft_atof(ca_position[2]);
+                    else
+                        return (0);
                     ca_direction = ft_strsplit(all[b][++n], ' ');
-                    ca.direction.x = ft_atof(ca_direction[0]);
-                    ca.direction.y = ft_atof(ca_direction[1]);
-                    ca.direction.z = ft_atof(ca_direction[2]);
+                    vec2 = 0;
+                    while (ca_direction[vec2])
+                        vec2++;
+                    if (vec2 > 3)
+                        return (0);
+                    if (ft_str_is_number(ca_direction[0]))
+                        ca.direction.x = ft_atof(ca_direction[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(ca_direction[1]))
+                        ca.direction.y = ft_atof(ca_direction[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(ca_direction[2]))
+                        ca.direction.z = ft_atof(ca_direction[2]);
+                    else
+                        return (0);
                 }
                 else
                     return (0);
@@ -238,9 +380,23 @@ int		ft_open(char *str, t_mx *v)
                 if (ft_strcmp(all[b][n], light) == 0)
                 {
                     l_position = ft_strsplit(all[b][++n], ' ');
-                    li.position.x = ft_atof(l_position[0]);
-                    li.position.y = ft_atof(l_position[1]);
-                    li.position.z = ft_atof(l_position[2]);
+                    vec1 = 0;
+                    while (l_position[vec1])
+                        vec1++;
+                    if (vec1 > 3)
+                        return (0);
+                    if (ft_str_is_number(l_position[0]))
+                        li.position.x = ft_atof(l_position[0]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(l_position[1]))
+                        li.position.y = ft_atof(l_position[1]);
+                    else
+                        return (0);
+                    if (ft_str_is_number(l_position[2]))
+                        li.position.z = ft_atof(l_position[2]);
+                    else
+                        return (0);
                     l_color = ft_special_atoi_base(all[b][++n]);
                 }
                 else

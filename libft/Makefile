@@ -24,7 +24,8 @@ SRC = ft_memcpy.c ft_striteri.c ft_memdel.c ft_strjoin.c ft_atoi.c \
 	  ft_strstr.c ft_lstnew.c ft_strcmp.c ft_strsub.c ft_max.c ft_strcpy.c \
 	  ft_strtrim.c ft_memalloc.c ft_strdel.c ft_tolower.c ft_memccpy.c \
 	  ft_strdup.c ft_toupper.c ft_memchr.c ft_strequ.c \
-	  ft_words_counter.c ft_memcmp.c ft_striter.c ft_atof.c
+	  ft_words_counter.c ft_memcmp.c ft_striter.c ft_atof.c ft_isnumber.c \
+	  ft_str_is_number.c
 
 CC = gcc
 
