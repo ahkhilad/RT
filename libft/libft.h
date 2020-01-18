@@ -6,7 +6,7 @@
 /*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 22:16:34 by ahkhilad          #+#    #+#             */
-/*   Updated: 2019/04/14 11:30:05 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/01/18 20:17:59 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				ft_isascii(int c);
 int				ft_isprint(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
-int				ft_str_is_number(char *str);
+int				ft_str_is_numeric(char *str);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 void			*ft_memchr(const void *s, int c, size_t n);

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_number.c                                 :+:      :+:    :+:   */
+/*   ft_vectormulti.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 21:46:42 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/01/15 21:46:48 by ahkhilad         ###   ########.fr       */
+/*   Created: 2020/01/18 19:53:24 by ahkhilad          #+#    #+#             */
+/*   Updated: 2020/01/18 20:07:55 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "linear_alg.h"
 
-int     ft_str_is_number(char *str)
+t_vec		ft_vectormulti(double scalar)
 {
-    int     i;
+	t_vec	c;
 
-    i = 0;
-    while (str[i])
-    {
-        if (!ft_isnumber(str[i]))
-            return (0);
-        i++;
-    }
-    return (1);
+	c.x *= scalar;
+	c.y *= scalar;
+	c.z *= scalar;
+	return (c);
 }

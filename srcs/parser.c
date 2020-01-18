@@ -6,7 +6,7 @@
 /*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:36 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/01/04 21:42:44 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/01/18 20:19:29 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,69 @@ int		ft_special_atoi_base(char *str)
 		v.n--;
 	}
 	return (v.somme);
+}
+
+// int     ft_check_semicolon(char *str)
+// {
+//     int     i;
+//     int     c1;
+//     int     c2;
+
+//     i = 0;
+//     c1 = 0;
+//     c2 = 0;
+//     while (str[i])
+//     {
+//         if (str[i] == ';')
+//         {
+//             c1++;
+//             i++;
+//         }
+//         while (str[i] != ';' && str[i])
+//         {
+//             i++;
+//             if (str[i + 1] == ';')
+//                 c2++;
+//         }
+//     }
+//     ft_putnbr(c2);
+//     printf("\n");
+//     ft_putnbr(c1);
+//     if (c2 != c1)
+//         return (0);
+//     return (1);
+// }
+
+int     ft_check_lines(char *str)
+{
+    int     i;
+    int     c;
+
+    i = 0;
+    c = 0;
+    while (str[i])
+    {
+        if (str[i] == '\n')
+        {
+            c++;
+            i++;
+        }
+        if (str[i] == ';')
+        {
+            if (c >= 3 && c <= 7)
+            {
+                i++;
+                if (str[i] == '\n')
+                    i++;
+                c = 0;
+                continue;
+            }
+            else
+                return (0);
+        }
+        i++;
+    }   
+    return (1);
 }
 
 int		ft_open(char *str, t_mx *v)
@@ -113,7 +176,9 @@ int		ft_open(char *str, t_mx *v)
 		free(tmp);
 	}
 	if (ft_strlen(line) == 0)
-		return 0;
+		return (0);
+    if (!(ft_check_lines(line)))
+        return (0);
 	tmp = line;
 	blocks = ft_strsplit(line, ';');
 	free(tmp);
@@ -157,20 +222,20 @@ int		ft_open(char *str, t_mx *v)
                         vec1++;
                     if (vec1 > 3)
                         return (0);
-                    if (ft_str_is_number(s_center[0]))
+                    if (ft_str_is_numeric(s_center[0]))
                         s.center.x = ft_atof(s_center[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(s_center[1]))
+                    if (ft_str_is_numeric(s_center[1]))
                         s.center.y = ft_atof(s_center[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(s_center[2]))
+                    if (ft_str_is_numeric(s_center[2]))
                         s.center.z = ft_atof(s_center[2]);
                     else
                         return (0);
                     ++n;
-                    if (ft_str_is_number(all[b][n]))
+                    if (ft_str_is_numeric(all[b][n]))
                         s.radius = ft_atof(all[b][n]);
                     else
                         return (0);
@@ -189,20 +254,20 @@ int		ft_open(char *str, t_mx *v)
                         vec1++;
                     if (vec1 > 3)
                         return (0);
-                    if (ft_str_is_number(p_normal[0]))
+                    if (ft_str_is_numeric(p_normal[0]))
                         p.normal.x = ft_atof(p_normal[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(p_normal[1]))
+                    if (ft_str_is_numeric(p_normal[1]))
                         p.normal.y = ft_atof(p_normal[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(p_normal[2]))
+                    if (ft_str_is_numeric(p_normal[2]))
                         p.normal.z = ft_atof(p_normal[2]);
                     else
                         return (0);
                     ++n;
-                    if (ft_str_is_number(all[b][n]))
+                    if (ft_str_is_numeric(all[b][n]))
                         p.distance = ft_atof(all[b][n]);
                     else
                         return (0);
@@ -221,15 +286,15 @@ int		ft_open(char *str, t_mx *v)
                         vec1++;
                     if (vec1 > 3)
                         return (0);
-                    if (ft_str_is_number(cy_center[0]))
+                    if (ft_str_is_numeric(cy_center[0]))
                         cy.center.x = ft_atof(cy_center[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(cy_center[1]))
+                    if (ft_str_is_numeric(cy_center[1]))
                         cy.center.y = ft_atof(cy_center[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(cy_center[2]))
+                    if (ft_str_is_numeric(cy_center[2]))
                         cy.center.z = ft_atof(cy_center[2]);
                     else
                         return (0);
@@ -239,25 +304,25 @@ int		ft_open(char *str, t_mx *v)
                         vec2++;
                     if (vec2 > 3)
                         return (0);
-                    if (ft_str_is_number(cy_direction[0]))
+                    if (ft_str_is_numeric(cy_direction[0]))
                         cy.direction.x = ft_atof(cy_direction[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(cy_direction[1]))
+                    if (ft_str_is_numeric(cy_direction[1]))
                         cy.direction.y = ft_atof(cy_direction[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(cy_direction[2]))
+                    if (ft_str_is_numeric(cy_direction[2]))
                         cy.direction.z = ft_atof(cy_direction[2]);
                     else
                         return (0);
                     ++n;
-                    if (ft_str_is_number(all[b][n]))
+                    if (ft_str_is_numeric(all[b][n]))
                         cy.radius = ft_atof(all[b][n]);
                     else
                         return (0);
                     ++n;
-                    if (ft_str_is_number(all[b][n]))
+                    if (ft_str_is_numeric(all[b][n]))
                         cy.height = ft_atof(all[b][n]);
                     else
                         return (0);
@@ -276,15 +341,15 @@ int		ft_open(char *str, t_mx *v)
                         vec1++;
                     if (vec1 > 3)
                         return (0);
-                    if (ft_str_is_number(co_center[0]))
+                    if (ft_str_is_numeric(co_center[0]))
                         co.center.x = ft_atof(co_center[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(co_center[1]))
+                    if (ft_str_is_numeric(co_center[1]))
                         co.center.y = ft_atof(co_center[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(co_center[2]))
+                    if (ft_str_is_numeric(co_center[2]))
                         co.center.z = ft_atof(co_center[2]);
                     else
                         return (0);
@@ -294,30 +359,30 @@ int		ft_open(char *str, t_mx *v)
                         vec2++;
                     if (vec2 > 3)
                         return (0);
-                    if (ft_str_is_number(co_direction[0]))
+                    if (ft_str_is_numeric(co_direction[0]))
                         co.direction.x = ft_atof(co_direction[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(co_direction[1]))
+                    if (ft_str_is_numeric(co_direction[1]))
                         co.direction.y = ft_atof(co_direction[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(co_direction[2]))
+                    if (ft_str_is_numeric(co_direction[2]))
                         co.direction.z = ft_atof(co_direction[2]);
                     else
                         return (0);
                     ++n;
-                    if (ft_str_is_number(all[b][n]))
+                    if (ft_str_is_numeric(all[b][n]))
                         co.radius = ft_atof(all[b][n]);
                     else
                         return (0);
                     ++n;
-                    if (ft_str_is_number(all[b][n]))
+                    if (ft_str_is_numeric(all[b][n]))
                         co.angle = ft_atof(all[b][n]);
                     else
                         return (0);
                     ++n;
-                    if (ft_str_is_number(all[b][n]))
+                    if (ft_str_is_numeric(all[b][n]))
                         co.height = ft_atof(all[b][n]);
                     else
                         return (0);
@@ -341,15 +406,15 @@ int		ft_open(char *str, t_mx *v)
                         vec1++;
                     if (vec1 > 3)
                         return (0);
-                    if (ft_str_is_number(ca_position[0]))
+                    if (ft_str_is_numeric(ca_position[0]))
                         ca.position.x = ft_atof(ca_position[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(ca_position[1]))
+                    if (ft_str_is_numeric(ca_position[1]))
                         ca.position.y = ft_atof(ca_position[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(ca_position[2]))
+                    if (ft_str_is_numeric(ca_position[2]))
                         ca.position.z = ft_atof(ca_position[2]);
                     else
                         return (0);
@@ -359,15 +424,15 @@ int		ft_open(char *str, t_mx *v)
                         vec2++;
                     if (vec2 > 3)
                         return (0);
-                    if (ft_str_is_number(ca_direction[0]))
+                    if (ft_str_is_numeric(ca_direction[0]))
                         ca.direction.x = ft_atof(ca_direction[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(ca_direction[1]))
+                    if (ft_str_is_numeric(ca_direction[1]))
                         ca.direction.y = ft_atof(ca_direction[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(ca_direction[2]))
+                    if (ft_str_is_numeric(ca_direction[2]))
                         ca.direction.z = ft_atof(ca_direction[2]);
                     else
                         return (0);
@@ -385,15 +450,15 @@ int		ft_open(char *str, t_mx *v)
                         vec1++;
                     if (vec1 > 3)
                         return (0);
-                    if (ft_str_is_number(l_position[0]))
+                    if (ft_str_is_numeric(l_position[0]))
                         li.position.x = ft_atof(l_position[0]);
                     else
                         return (0);
-                    if (ft_str_is_number(l_position[1]))
+                    if (ft_str_is_numeric(l_position[1]))
                         li.position.y = ft_atof(l_position[1]);
                     else
                         return (0);
-                    if (ft_str_is_number(l_position[2]))
+                    if (ft_str_is_numeric(l_position[2]))
                         li.position.z = ft_atof(l_position[2]);
                     else
                         return (0);

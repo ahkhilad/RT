@@ -27,6 +27,7 @@
 # include <stdio.h>
 # include <time.h>
 # include "../libft/libft.h"
+# include "../linearlib/linear_alg.h"
 
 typedef struct	s_base
 {
@@ -57,13 +58,6 @@ typedef struct          s_col
     double              blue;
     double              special;
 }                       t_col;
-
-typedef struct          s_vec
-{
-    double              x;
-    double              y;
-    double              z;
-}                       t_vec;
 
 typedef struct          s_light
 {
