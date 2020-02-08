@@ -62,21 +62,21 @@ typedef struct          s_col
 typedef struct          s_light
 {
     t_vec               position;
-    t_col               colour;
+    int                 colour;
 }                       t_light;
 
 typedef struct          s_sphere
 {
     t_vec               center;
     double              radius;
-    t_col               colour;
+    int                 colour;
 }                       t_sphere;
 
 typedef struct          s_plane
 {
     t_vec               normal;
     double              distance;
-    t_col               colour;
+    int                 colour;
 }                       t_plane;
 
 typedef struct          s_cylinder
@@ -85,7 +85,7 @@ typedef struct          s_cylinder
     t_vec               direction;
     double              radius;
     double              height;
-    t_col               colour;
+    int                 colour;
 }                       t_cylinder;
 
 typedef struct          s_cone
@@ -95,7 +95,7 @@ typedef struct          s_cone
     double              radius;
     double              angle;
     double              height;
-    t_col               colour;
+    int                 colour;
 }                       t_cone;
 
 typedef struct          s_cam
