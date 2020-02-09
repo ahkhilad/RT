@@ -18,9 +18,6 @@
 # define WIN_W 1280
 # define WIN_H 720
 
-# define SPHERE 1
-# define PLANE 2
-
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
@@ -105,6 +102,13 @@ typedef struct          s_cam
     // t_vec               cam_down;
     // t_vec               cam_right;
 }                       t_cam;
+
+typedef struct          s_ray
+{
+    t_vec               source;
+    t_vec               direction;
+}                       t_ray;
+
 
 typedef struct          s_mx
 {

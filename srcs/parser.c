@@ -103,7 +103,7 @@ void     ft_parse_sphere(char **ptr)
         sphere.radius = ft_atof(ptr[2]);
     else
         return ;
-    ft_putnbr(sphere.radius);
+    printf("%f\n", sphere.radius);
     sphere.colour = ft_special_atoi_base(ptr[3]);
 }
 
@@ -129,7 +129,7 @@ void     ft_parse_plane(char **ptr)
         plane.distance = ft_atof(ptr[2]);
     else
         return ;
-    ft_putnbr(plane.distance);
+    printf("%f\n", plane.distance);
     plane.colour = ft_special_atoi_base(ptr[3]);
 }
 
@@ -280,6 +280,41 @@ void     ft_parse_light(char **ptr)
     light.colour = ft_special_atoi_base(ptr[2]);
 }
 
+void     ft_parse_ray(char **ptr)
+{
+    t_ray       ray;
+    char        **c_tab;
+    char        **d_tab;
+
+    c_tab = ft_strsplit(ptr[1], ' ');
+    if (ft_str_is_numeric(c_tab[0]))
+        ray.source.x = ft_atof(c_tab[0]);
+    else
+        return ;
+    if (ft_str_is_numeric(c_tab[1]))
+        ray.source.y = ft_atof(c_tab[1]);
+    else
+        return ;
+    if (ft_str_is_numeric(c_tab[2]))
+        ray.source.z = ft_atof(c_tab[2]);
+    else
+        return ;
+    d_tab = ft_strsplit(ptr[2], ' ');
+    if (ft_str_is_numeric(d_tab[0]))
+        ray.direction.x = ft_atof(d_tab[0]);
+    else
+        return ;
+    if (ft_str_is_numeric(d_tab[1]))
+        ray.direction.y = ft_atof(d_tab[1]);
+    else
+        return ;
+    if (ft_str_is_numeric(d_tab[2]))
+        ray.direction.z = ft_atof(d_tab[2]);
+    else
+        return ;
+    printf("%f\n", ray.direction.y);
+}
+
 int     ft_check_lines(char *str)
 {
     int     i;
@@ -327,41 +362,12 @@ int		ft_open(char *str, t_mx *v)
     char    *cylinder;
     char    *light;
     char    *camera;
+    char    *ray;
 	char	*tmp;
 	char	*line;
 	char	**blocks;
     char    ***all;
 	char	buff[BUFF_SIZE + 1];
-    int     b;
-    int     n;
-    int     vec1;
-    int     vec2;
-
-    t_sphere    s;
-    char        **s_center;
-    int         s_color;
-
-    t_plane     p;
-    char        **p_normal;
-    int         p_color;
-
-    t_cylinder  cy;
-    char        **cy_center;
-    char        **cy_direction;
-    int         cy_color;
-
-    t_cone      co;
-    char        **co_center;
-    char        **co_direction;
-    int         co_color;
-
-    t_cam       ca;
-    char        **ca_position;
-    char        **ca_direction;
-
-    t_light     li;
-    char        **l_position;
-    int         l_color;
 
 	fd = open(str, O_RDONLY);
 	if (read(fd, buff, 0) < 0)
@@ -394,7 +400,6 @@ int		ft_open(char *str, t_mx *v)
             all[i] = ft_strsplit(blocks[i], '\n');
             k++;
         }
-        //j = k;
         i++;
     }
     sphere = "sphere";
@@ -403,39 +408,44 @@ int		ft_open(char *str, t_mx *v)
     cone = "cone";
     camera = "camera";
     light = "light";
-    b = 0;
+    ray = "ray";
     i = 0;
     while(all[i])
     {
         if (ft_strequ(all[i][0], sphere))
         {
             ft_parse_sphere(all[i]);
-            printf("wlahta sphere");
+            printf("wlahta sphere\n");
         }
         if (ft_strequ(all[i][0], plane))
         {
             ft_parse_plane(all[i]);
-            printf("wlahta plane");
+            printf("wlahta plane\n");
         }
         if (ft_strequ(all[i][0], cylinder))
         {
             ft_parse_cylinder(all[i]);
-            printf("wlahta cylinder");
+            printf("wlahta cylinder\n");
         }
         if (ft_strequ(all[i][0], cone))
         {
             ft_parse_cone(all[i]);
-            printf("wlahta cone");
+            printf("wlahta cone\n");
         }
         if (ft_strequ(all[i][0], camera))
         {
             ft_parse_camera(all[i]);
-            printf("wlahta camera");
+            printf("wlahta camera\n");
         }
         if (ft_strequ(all[i][0], light))
         {
             ft_parse_light(all[i]);
-            printf("wlahta light");
+            printf("wlahta light\n");
+        }
+        if (ft_strequ(all[i][0], ray))
+        {
+            ft_parse_ray(all[i]);
+            printf("wlahta ray\n");
         }
         i++;
     }  

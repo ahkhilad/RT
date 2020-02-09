@@ -9,11 +9,12 @@ scene_element_options() {
     => cone
     => plane
     => light
-    => camera"
+    => camera
+    => ray"
 
     read option
 
-    if [[ ( $option == "sphere" || $option == "cylinder" || $option == "cone" || $option == "plane" || $option == "light" || $option == "camera" ) ]]
+    if [[ ( $option == "sphere" || $option == "cylinder" || $option == "cone" || $option == "plane" || $option == "light" || $option == "camera" || $option == "ray" ) ]]
     then
     echo "$option" >> ./"$file_name_str".conf
         if [ $option == "sphere" ];
@@ -446,6 +447,92 @@ scene_element_options() {
         elif [ $option == "camera" ];
         then
             echo -e "please add its position vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its direction vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e ";" >> ./"$file_name_str".conf
+        add_new_element_function
+        elif [ $option == "ray" ];
+        then
+            echo -e "please add its source vector !"
             read -p "x = " x
             while [ true ]
             do
