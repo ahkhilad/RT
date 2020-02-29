@@ -14,7 +14,7 @@
 
 t_vec		ft_normalize(t_vec v)
 {
-	double	magnitude;
+	float	magnitude;
 
 	magnitude = sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
 	v.x /= magnitude;

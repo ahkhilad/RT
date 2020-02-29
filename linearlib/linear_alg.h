@@ -17,17 +17,18 @@
 
 typedef struct	s_vec
 {
-	double		x;
-	double		y;
-	double		z;
+	float		x;
+	float		y;
+	float		z;
 }				t_vec;
 
-double			ft_magnitude(t_vec v);
+float			ft_magnitude(t_vec v);
 t_vec			ft_normalize(t_vec v);
 t_vec			ft_negative(t_vec v);
-double			ft_dotproduct(t_vec a, t_vec b);
+float			ft_dotproduct(t_vec a, t_vec b);
 t_vec			ft_crossproduct(t_vec a, t_vec b);
 t_vec			ft_vectoradd(t_vec a, t_vec b);
-t_vec			ft_vectormulti(double scalar);
+t_vec			ft_vectorsub(t_vec a, t_vec b);
+t_vec			ft_vectormulti(float scalar);
 
 #endif

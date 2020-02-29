@@ -35,19 +35,6 @@ typedef struct	s_base
 	int			somme;
 }				t_base;
 
-typedef struct          s_lst
-{
-    double              var;
-    struct s_lst        *next;
-}                       t_lst;
-
-typedef struct          s_object
-{
-    void                *object;
-    int                 type;
-    struct s_object     *next;
-}                       t_object;
-
 typedef struct          s_col
 {
     double              red;
@@ -110,6 +97,27 @@ typedef struct          s_ray
 }                       t_ray;
 
 
+typedef enum e_type{
+    NONE, SPHERE = 10, PLANE, CONE, CYLINDER
+}           t_type;
+
+
+typedef struct          s_object
+{
+    t_type              type;
+    t_vec               pos;
+    t_vec               trans;
+    t_vec               rot;
+    t_vec               color;
+
+    float               radius;
+    float               angle;
+    t_vec               normal;
+    t_vec               axis;
+
+    struct s_object     *next;
+}                       t_object;
+
 typedef struct          s_mx
 {
     void                *mptr;
@@ -119,10 +127,55 @@ typedef struct          s_mx
     int                 bpp;
     int                 size;
     int                 end;
-    int                 size_x;
-    int                 size_y;
+
+    t_object            *objects;
+    t_cam               cam;
 }                       t_mx;
 
+
+
+
 int     ft_open(char *str, t_mx *v);
+void	ft_usage(void);
+void	ft_destroy(t_mx *v);
+int		key_press(int keycode, void *p);
+int		red_button(void *p);
+void setup(t_mx *v);
+void update(t_mx *mx);
+void  display(t_mx *mx);
+void run(t_mx *mx);
+
+
+
+t_object        ft_sphere(t_vec pos, float radius, t_vec color);
+t_object        ft_plane(t_vec pos, t_vec normal, t_vec color);
+t_object        ft_cone(t_vec pos, t_vec axis, float angle, t_vec color);
+t_object        ft_cylinder(t_vec pos, t_vec axis, float radius, t_vec color);
+
+t_object        *ft_object_new(t_object o);
+void            ft_object_push(t_object **lst, t_object *nw);
+void            ft_object_clear(t_object **lst);
+
+
+
+// void        ft_object_push_front(t_object **lst, t_object *new){
+
+//     if (lst == NULL || new == NULL)
+//     return;
+//     new->next = *lst;
+//     *lst = new;
+// }
+
+void        ft_strsplit_free(char ***tab);
+int         ft_strsplit_len(char **tab);
+ int        ft_strsplit_print(char **tab);
+int		    ft_special_atoi_base(char *str);
+t_vec       vect_from_hexa(int rgb);
+t_vec       string_to_vect(char *str);
+
+void        ft_parse_sphere(t_mx *v, char **token);
+void        ft_parse_plane(t_mx *v, char **token);
+void        ft_parse_cone(t_mx *v, char **token);
+void        ft_parse_cylinder(t_mx *v, char **token);
 
 # endif

@@ -11,62 +11,77 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#define RAY_Z (2000)
 
-void	ft_usage(void)
-{
-	ft_putstr("Usage: binary file [a valid map].\n");
-	exit(0);
+t_ray camera_ray(int x, int y){
+	t_ray ray;
+
+	ray.source = (t_vec){x, y, RAY_Z};
+	ray.direction = (t_vec){0, 0, -1};
+	return (ray);
 }
 
-void	ft_destroy(t_mx *v)
-{
-	//mlx_destroy_image(v->mptr, v->iptr);
-	mlx_clear_window(v->mptr, v->wptr);
-	mlx_destroy_window(v->mptr, v->wptr);
-}
-
-int		key_press(int keycode, void *p)
-{
-	t_mx	*v;
-
-	v = (t_mx *)p;
-	if (keycode == 53)
-	{
-		ft_destroy(v);
-		exit(0);
+int sphere_intersect(t_object *sphere, t_ray *ray){
+	t_vec x;
+	float a, b, c, delta;
+	
+	x = ft_vectorsub(ray->source, sphere->pos);
+	a = ft_dotproduct(ray->direction, ray->direction);
+	b = 2.0 * ft_dotproduct(ray->direction, x);
+	c = ft_dotproduct(x, x) - sphere->radius * sphere->radius;
+	delta = b * b - 4.0 * a * c;
+	if (delta < 0){
+		return (0);
+	}else{
+		return (1);
 	}
-	return(0);
 }
 
-int		red_button(void *p)
-{
-	t_mx	*v;
+int		raycast(t_object *lst, t_ray *ray){
+	t_object	*p;
 
-	v = (t_mx *)p;
-	ft_destroy(v);
-	exit(0);
+	p = lst;
+	while (p){
+		if (p->type == SPHERE){
+			if (sphere_intersect(p, ray))
+				return (1);
+		}
+		p = p->next;
+	}
+	return (0);
 }
+
+void update(t_mx *mx){
+
+	t_ray ray;
+
+	
+	for(int y = 0; y < WIN_H; y++){
+		for(int x = 0; x < WIN_W; x++){
+			 ray = camera_ray(x - WIN_W / 2, y - WIN_H / 2);
+			if (raycast(mx->objects, &ray)){
+				mx->rt[y * WIN_W + x] = 0xFFFF00;
+			}
+		}
+	}
+}
+
 
 int     main(int ac, char **av)
 {
     t_mx    v;
 
+	//ft_bzero(&v, sizeof(t_object));
     if (ac == 2)
     {
         if (av[1])
         {
-            if (!ft_open(av[1], &v))
-            {
+            if (!ft_open(av[1], &v)){
                 ft_putstr("error! please try a valid map.\n");
 				exit(0);
             }
-            else
-			{
-				v.mptr = mlx_init();
-				v.wptr = mlx_new_window(v.mptr, WIN_W, WIN_H, "RTv1");
-				mlx_hook(v.wptr, 2, 0, key_press, (void *)&v);
-				mlx_hook(v.wptr, 17, 0, red_button, (void *)&v);
-				mlx_loop(v.mptr);
+            else{
+				run(&v);
 			}
         }
     }

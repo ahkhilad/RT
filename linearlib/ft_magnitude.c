@@ -12,7 +12,7 @@
 
 #include "linear_alg.h"
 
-double		ft_magnitude(t_vec v)
+float		ft_magnitude(t_vec v)
 {
 	t_vec	c;
 

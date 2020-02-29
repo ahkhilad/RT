@@ -13,7 +13,7 @@
 NAME = linear_alg.a
 
 SRC = ft_magnitude.c ft_normalize.c ft_negative.c ft_dotproduct.c \
-	ft_crossproduct.c ft_vectoradd.c ft_vectormulti.c
+	ft_crossproduct.c ft_vectoradd.c ft_vectorsub.c ft_vectormulti.c
 
 CC = gcc
 

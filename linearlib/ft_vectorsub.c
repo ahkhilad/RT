@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dotproduct.c                                    :+:      :+:    :+:   */
+/*   ft_vectorsub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/18 19:52:21 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/01/18 19:59:25 by ahkhilad         ###   ########.fr       */
+/*   Created: 2020/01/18 19:53:13 by ahkhilad          #+#    #+#             */
+/*   Updated: 2020/01/18 20:06:37 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linear_alg.h"
 
-float		ft_dotproduct(t_vec a, t_vec b)
+t_vec		ft_vectorsub(t_vec a, t_vec b)
 {
-	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
+	t_vec	c;
+
+	c.x = a.x - b.x;
+	c.y = a.y - b.y;
+	c.z = a.z - b.z;
+	return (c);
 }

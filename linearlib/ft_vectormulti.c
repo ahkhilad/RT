@@ -12,7 +12,7 @@
 
 #include "linear_alg.h"
 
-t_vec		ft_vectormulti(double scalar)
+t_vec		ft_vectormulti(float scalar)
 {
 	t_vec	c;
 
