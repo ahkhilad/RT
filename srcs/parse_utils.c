@@ -67,11 +67,11 @@ int		ft_special_atoi_base(char *str)
 }
 
 t_vec   vect_from_hexa(int rgb){
+    t_vec v;
+
     int red = (rgb >> 16) & 0xFF;
     int green = (rgb >> 8) & 0xFF;
     int blue = rgb & 0xFF;
-
-    t_vec v;
 
     v.x = (float)red / 255.0f;
     v.y = (float)green / 255.0f;

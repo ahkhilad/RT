@@ -29,6 +29,6 @@ float			ft_dotproduct(t_vec a, t_vec b);
 t_vec			ft_crossproduct(t_vec a, t_vec b);
 t_vec			ft_vectoradd(t_vec a, t_vec b);
 t_vec			ft_vectorsub(t_vec a, t_vec b);
-t_vec			ft_vectormulti(float scalar);
+t_vec		ft_vectormulti(t_vec	c, float scalar);
 
 #endif

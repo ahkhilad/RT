@@ -23,6 +23,8 @@ void    ft_token_handle(t_mx *v, char **token)
          ft_parse_cone(v, token);
     }else if (token[0] && !ft_strcmp(token[0], "cylinder")){
          ft_parse_cylinder(v, token);
+    }else if (token[0] && !ft_strcmp(token[0], "light")){
+         ft_parse_light(v, token);
     }
 }
 

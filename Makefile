@@ -16,8 +16,9 @@ LFT = libft/libft.a
 
 LINALG = linearlib/linear_alg.a
 
-SRCS = ./srcs/main1.c ./srcs/parser.c ./srcs/launch.c ./srcs/primitives.c \
-		./srcs/objects.c ./srcs/parse_objects.c ./srcs/parse_utils.c
+SRCS = ./srcs/main.c ./srcs/parser.c ./srcs/launch.c ./srcs/primitives.c \
+		./srcs/objects.c ./srcs/parse_objects.c ./srcs/parse_utils.c \
+		./srcs/utils.c srcs/lights.c
 
 CC = gcc
 
