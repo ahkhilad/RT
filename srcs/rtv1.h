@@ -80,6 +80,14 @@ typedef struct          s_light
     struct s_light     *next;
 }                       t_light;
 
+typedef struct          s_hit
+{
+    t_vec               n;
+    t_vec               p;
+    t_object            *object;
+    float               t;
+}                       t_hit;
+
 typedef struct          s_mx
 {
     void                *mptr;

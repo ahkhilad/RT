@@ -78,8 +78,9 @@ void    ft_parse_light(t_mx *v, char **token){
     if (len > 1 && token[1])
         light.pos = string_to_vect(token[1]);
     if (len > 2 && token[2])
-    light.intensity = ft_atof(token[2]);  
+        light.intensity = ft_atof(token[2]);  
+  //  light.intensity = atof(token[2]);  
     if (len > 3 && token[3])
-    light.color = vect_from_hexa(ft_special_atoi_base(token[3]));
+        light.color = vect_from_hexa(ft_special_atoi_base(token[3]));
     ft_light_push(&v->lights, ft_light_new(light.pos, light.color, light.intensity));
 }

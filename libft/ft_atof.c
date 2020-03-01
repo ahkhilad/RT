@@ -12,6 +12,8 @@
 
 #include "libft.h"
 
+#include <stdio.h>
+
 double		ft_atof(const char *str)
 {
 	double			whole_part;
@@ -35,5 +37,5 @@ double		ft_atof(const char *str)
 		decimal_part = decimal_part / 10;
 		i--;
 	}
-	return (whole_part + ((whole_part > 0) ? decimal_part : -decimal_part));
+	return (whole_part + ((whole_part >= 0) ? decimal_part : -decimal_part));
 }
