@@ -37,63 +37,58 @@ static int		ft_min_ray(float t1, float t2, float *t)
 		return (0);
 }
 
-int sphere_intersect(t_object *sphere, t_ray *ray, float *tmin){
+int sphere_intersect(t_object *sphere, t_ray *ray, float *tmin)
+{
 	t_vec x;
 	float a, b, c, delta;
 	float t1, t2;
 	float t;
-
-t = INFINITY;
+	
+	t = INFINITY;
 	x = ft_vectorsub(ray->source, sphere->pos);
 	a = ft_dotproduct(ray->direction, ray->direction);
 	b = 2.0 * ft_dotproduct(ray->direction, x);
 	c = ft_dotproduct(x, x) - sphere->radius * sphere->radius;
 	delta = b * b - 4.0 * a * c;
-	if (delta < 0){
+	if (delta < 0)
 		return (0);
-	}
 	delta = sqrt(delta);
 	t1 = (-b + delta) / (2 * a);
 	t2 = (-b - delta) / (2 * a);
 	return (ft_min_ray(t1, t2, tmin));
-	if (t1 < 1e-6 && t2 < 1e-6){
-		*tmin = INFINITY;
-		return (0);
-	}
-	if (t1 > t2){
-		float tmp = t1;
-		t1 = t2;
-		t2 = tmp;
-	}
-	if (t1 > 1e-6f){
-		t = t1;
-	}else if (t2 > 1e-6f){
-		t = t2;
-	}
-	*tmin = t;
-	return (1);
 }
 
 void	ft_compute_normals(t_hit *hit, t_ray *ray)
 {
 	(void)ray;
-	if (hit->object->type == SPHERE){
+	if (hit->object->type == SPHERE)
 		hit->n = ft_normalize(ft_vectorsub(hit->p, hit->object->pos));
-	}
-	else if (hit->object->type == PLANE){
+	else if (hit->object->type == PLANE)
 		hit->n = hit->object->normal;
-	}
 }
 
-t_vec	ft_light_calc(t_light *light, t_vec light_dir, t_hit *hit, t_ray *ray)
+t_vec	ft_light_computing(t_light *light, t_vec light_dir, t_hit *hit, t_ray *ray)
 {
 	float 		lambert;
 	t_vec		color;
+	float		reflect;
+	float		phong_term;
+	t_vec		phong_dir;
 		
+	// the following is the diffuse calculation;
+
 	color = (t_vec){0.0f, 0.0f, 0.0f};
 	lambert = fmax(0.0f, ft_dotproduct(light_dir, hit->n));
 	color = ft_vectoradd(color, ft_vectormulti(hit->object->color, lambert));
-	// add specular
+
+	// and this is the calculation of the shininess of the object (specular);
+
+	reflect = 2.0f * (ft_dotproduct(light_dir, hit->n));
+	phong_dir = ft_vectorsub(light_dir, ft_vectormulti(hit->n, reflect));
+	phong_term = fmax(ft_dotproduct(phong_dir, ray->direction), 0.0f);
+	phong_term = 1.0f * powf(phong_term, 90.0f) * 1.0f;
+	color = ft_vectoradd(color, ft_vectormulti(hit->object->color, phong_term));
+
 //	printf("Intensity : %.2f\n", light->intensity);
 	color.x = color.x * light->color.x * light->intensity;
 	color.y = color.y * light->color.y * light->intensity;
@@ -101,7 +96,8 @@ t_vec	ft_light_calc(t_light *light, t_vec light_dir, t_hit *hit, t_ray *ray)
 	return (color);
 }
 
-int 	ft_shade_object(t_hit *hit, t_light *lights, t_object *lst, t_ray *ray){
+int 	ft_shade_object(t_hit *hit, t_light *lights, t_object *lst, t_ray *ray)
+{
 	t_light 	*light;
 	t_vec		color;
 	t_vec		light_dir;
@@ -112,34 +108,35 @@ int 	ft_shade_object(t_hit *hit, t_light *lights, t_object *lst, t_ray *ray){
 	color = (t_vec){0.0f, 0.0f, 0.0f};
 	shadow_ray.source = hit->p;
 	light = lights;
-	while (light){
+	while (light)
+	{
 		light_dir = ft_normalize(ft_vectorsub(light->pos, hit->p));
 		shadow_ray.direction = light_dir;
 		t = ft_magnitude(ft_vectorsub(light->pos, hit->p));
 		if (!shadow_cast(lst, &shadow_ray, &t))
-		 color = ft_vectoradd(color, ft_light_calc(light, light_dir, hit, ray));
+		 color = ft_vectoradd(color, ft_light_computing(light, light_dir, hit, ray));
 		light = light->next;
 	}
 	return (rgb_to_int(clamp_vect(color)));
 }
 
-int	raycast(t_object *lst, t_ray *ray, t_hit *hit){
+int	raycast(t_object *lst, t_ray *ray, t_hit *hit)
+{
 	t_object	*p;
 	float		t;
 
 	t = INFINITY;
 	hit->object = NULL;
 	p = lst;
-	while (p){
-		if (p->type == SPHERE){
+	while (p)
+	{
+		if (p->type == SPHERE)
 			if (sphere_intersect(p, ray, &t))
-			{
-				if (hit->t > t){
+				if (hit->t > t)
+				{
 					hit->t = t;
 					hit->object = p;
 				}
-			}
-		}
 		p = p->next;
 	}
 	if (hit->object == NULL)
@@ -155,29 +152,30 @@ int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin){
 
 	t = INFINITY;
 	p = lst;
-	while (p){
-		if (p->type == SPHERE){
+	while (p)
+	{
+		if (p->type == SPHERE)
 			if (sphere_intersect(p, ray, &t))
-			 {
-				 if (t < *tmin)
-				 	return (1);
-			 }
-		}
+				if (t < *tmin)
+					return (1);
 		p = p->next;
 	}
 	return 0;
 }
 
-void update(t_mx *mx){
-
+void update(t_mx *mx)
+{
 	t_ray 	ray;
 	t_hit	hit;
 
-	for(int y = 0; y < WIN_H; y++){
-		for(int x = 0; x < WIN_W; x++){
-			 ray = camera_ray(x - WIN_W / 2, y - WIN_H / 2);
-			 hit.t = INFINITY;
-			if (raycast(mx->objects, &ray, &hit)){
+	for(int y = 0; y < WIN_H; y++)
+	{
+		for(int x = 0; x < WIN_W; x++)
+		{
+			ray = camera_ray(x - WIN_W / 2, y - WIN_H / 2);
+			hit.t = INFINITY;
+			if (raycast(mx->objects, &ray, &hit))
+			{
 				mx->rt[(WIN_H - 1 - y) *  WIN_W + x] = ft_shade_object(&hit, mx->lights, mx->objects, &ray);
 			}
 		}
@@ -189,7 +187,6 @@ int     main(int ac, char **av)
 {
     t_mx    v;
 
-	//ft_bzero(&v, sizeof(t_object));
     if (ac == 2)
     {
         if (av[1])
@@ -199,9 +196,7 @@ int     main(int ac, char **av)
 				exit(0);
             }
             else
-			{
 				run(&v);
-			}
         }
     }
     else

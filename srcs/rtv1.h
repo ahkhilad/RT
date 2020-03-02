@@ -35,13 +35,11 @@ typedef struct	s_base
 	int			somme;
 }				t_base;
 
-typedef struct          s_cam
-{
-    t_vec               position;
-    t_vec               direction;
-    // t_vec               cam_down;
-    // t_vec               cam_right;
-}                       t_cam;
+// typedef struct          s_cam
+// {
+//     t_vec               position;
+//     t_vec               direction;
+// }                       t_cam;
 
 typedef struct          s_ray
 {
@@ -100,7 +98,7 @@ typedef struct          s_mx
 
     t_object            *objects;
     t_light             *lights;
-    t_cam               cam;
+    // t_cam               cam;
 }                       t_mx;
 
 int     ft_open(char *str, t_mx *v);
@@ -132,13 +130,16 @@ t_light        *ft_light_new(t_vec pos, t_vec color, float intensity);
 void            ft_light_push(t_light **lst, t_light *nw);
 void            ft_light_clear(t_light **lst);
 
-// void        ft_object_push_front(t_object **lst, t_object *new){
 
-//     if (lst == NULL || new == NULL)
-//     return;
-//     new->next = *lst;
-//     *lst = new;
-// }
+// the following is a function to push an element at the beginning of a linked_list;
+
+/* void        ft_object_push_front(t_object **lst, t_object *new){
+
+    if (lst == NULL || new == NULL)
+    return;
+    new->next = *lst;
+    *lst = new;
+}*/
 
 void        ft_strsplit_free(char ***tab);
 int         ft_strsplit_len(char **tab);

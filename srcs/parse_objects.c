@@ -1,6 +1,7 @@
 #include "rtv1.h"
 
-void    ft_parse_sphere(t_mx *v, char **token){
+void    ft_parse_sphere(t_mx *v, char **token)
+{
     t_object    object;
     int         len;
     
@@ -16,7 +17,8 @@ void    ft_parse_sphere(t_mx *v, char **token){
     ft_object_push(&v->objects, ft_object_new(object));
 }
 
-void    ft_parse_plane(t_mx *v, char **token){
+void    ft_parse_plane(t_mx *v, char **token)
+{
     t_object    object;
     int         len;
     
@@ -32,7 +34,8 @@ void    ft_parse_plane(t_mx *v, char **token){
     ft_object_push(&v->objects, ft_object_new(object));
 }
 
-void    ft_parse_cone(t_mx *v, char **token){
+void    ft_parse_cone(t_mx *v, char **token)
+{
     t_object    object;
     int         len;
     
@@ -50,7 +53,8 @@ void    ft_parse_cone(t_mx *v, char **token){
     ft_object_push(&v->objects, ft_object_new(object));
 }
 
-void    ft_parse_cylinder(t_mx *v, char **token){
+void    ft_parse_cylinder(t_mx *v, char **token)
+{
     t_object    object;
     int         len;
     
@@ -69,7 +73,8 @@ void    ft_parse_cylinder(t_mx *v, char **token){
 }
 
 
-void    ft_parse_light(t_mx *v, char **token){
+void    ft_parse_light(t_mx *v, char **token)
+{
     t_light    light;
     int         len;
     
@@ -79,7 +84,6 @@ void    ft_parse_light(t_mx *v, char **token){
         light.pos = string_to_vect(token[1]);
     if (len > 2 && token[2])
         light.intensity = ft_atof(token[2]);  
-  //  light.intensity = atof(token[2]);  
     if (len > 3 && token[3])
         light.color = vect_from_hexa(ft_special_atoi_base(token[3]));
     ft_light_push(&v->lights, ft_light_new(light.pos, light.color, light.intensity));

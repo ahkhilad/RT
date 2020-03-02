@@ -1,9 +1,11 @@
 #include "rtv1.h"
 
-t_object        *ft_object_new(t_object o){
+t_object        *ft_object_new(t_object o)
+{
     t_object    *new;
 
-    if ((new = ft_memalloc(sizeof(t_object)))){
+    if ((new = ft_memalloc(sizeof(t_object))))
+    {
         new->type = o.type;
         new->pos = o.pos;
         new->trans = o.trans;
@@ -18,12 +20,14 @@ t_object        *ft_object_new(t_object o){
     return (new);
 }
 
-void        ft_object_push(t_object **lst, t_object *new){
+void        ft_object_push(t_object **lst, t_object *new)
+{
     t_object    *p;
 
     if (lst == NULL || new == NULL)
     return;
-    else if (*lst == NULL){
+    else if (*lst == NULL)
+    {
         *lst = new;
         return ;
     }
@@ -33,10 +37,12 @@ void        ft_object_push(t_object **lst, t_object *new){
     p->next = new;
 }
 
-void    ft_object_clear(t_object **lst){
+void    ft_object_clear(t_object **lst)
+{
     t_object    *p;
 
-    while ((*lst) != NULL){
+    while ((*lst) != NULL)
+    {
         p = (*lst);
         (*lst) = (*lst)->next;
         free(p);

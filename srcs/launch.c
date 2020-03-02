@@ -36,7 +36,8 @@ int		red_button(void *p)
 	exit(0);
 }
 
-void setup(t_mx *v){
+void setup(t_mx *v)
+{
 	v->mptr = mlx_init();
 	v->wptr = mlx_new_window(v->mptr, WIN_W, WIN_H, "RTv1");
 	v->iptr = mlx_new_image(v->mptr, WIN_W, WIN_H);
@@ -45,13 +46,15 @@ void setup(t_mx *v){
 	mlx_hook(v->wptr, 17, 0, red_button, v);
 }
 
-void  display(t_mx *mx){
+void  display(t_mx *mx)
+{
 	//mlx_pixel_put(mx->mptr, mx->wptr, 100, 100, 0xFF00FF);
 	mlx_put_image_to_window(mx->mptr, mx->wptr, mx->iptr, 0, 0);
 	mlx_loop(mx->mptr);
 }
 
-void run(t_mx *mx){
+void run(t_mx *mx)
+{
 	setup(mx);
 	update(mx);
 	display(mx);

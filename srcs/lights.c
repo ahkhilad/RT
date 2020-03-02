@@ -25,12 +25,11 @@ void        ft_light_push(t_light **lst, t_light *new)
         *lst = new;
         return ;
     }
-    else {
+    else
+    {
         ptr = *lst;
         while (ptr->next)
-        {
             ptr = ptr->next;
-        }
         ptr->next = new;
     }
 }
