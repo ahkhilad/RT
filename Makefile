@@ -18,7 +18,7 @@ LINALG = linearlib/linear_alg.a
 
 SRCS = ./srcs/main.c ./srcs/parser.c ./srcs/launch.c ./srcs/primitives.c \
 		./srcs/objects.c ./srcs/parse_objects.c ./srcs/parse_utils.c \
-		./srcs/utils.c srcs/lights.c
+		./srcs/utils.c ./srcs/lights.c ./srcs/camera.c ./srcs/parse_camera.c
 
 CC = gcc
 

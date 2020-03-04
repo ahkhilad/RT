@@ -35,11 +35,17 @@ typedef struct	s_base
 	int			somme;
 }				t_base;
 
-// typedef struct          s_cam
-// {
-//     t_vec               position;
-//     t_vec               direction;
-// }                       t_cam;
+typedef struct          s_cam
+{
+    t_vec               pos;
+    t_vec               forward;
+    t_vec               u;
+    t_vec               v;
+    t_vec               lower_left_corner;
+    t_vec               horizontal;
+    t_vec               vertical;
+    float               fov;
+}                       t_cam;
 
 typedef struct          s_ray
 {
@@ -98,7 +104,7 @@ typedef struct          s_mx
 
     t_object            *objects;
     t_light             *lights;
-    // t_cam               cam;
+    t_cam               cam;
 }                       t_mx;
 
 int     ft_open(char *str, t_mx *v);
@@ -153,5 +159,10 @@ void        ft_parse_plane(t_mx *v, char **token);
 void        ft_parse_cone(t_mx *v, char **token);
 void        ft_parse_cylinder(t_mx *v, char **token);
 void        ft_parse_light(t_mx *v, char **token);
+
+void        ft_parse_camera(t_mx *v, char **token);
+t_cam       ft_camera_create(t_vec pos,  t_vec at, t_vec vup, float vfov);
+t_ray       camera_ray(t_cam *cam, int x, int y);
+
 
 # endif

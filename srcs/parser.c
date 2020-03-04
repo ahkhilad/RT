@@ -35,6 +35,10 @@ void    ft_token_handle(t_mx *v, char **token)
     {
         ft_parse_light(v, token);
     }
+    else if (token[0] && !ft_strcmp(token[0], "camera"))
+    {
+        ft_parse_camera(v, token);  
+    }
 }
 
 void    ft_blocks(t_mx *v, char *line)

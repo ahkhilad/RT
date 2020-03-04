@@ -11,15 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#define RAY_Z (2000)
 
-t_ray camera_ray(int x, int y){
-	t_ray ray;
-
-	ray.source = (t_vec){x, y, RAY_Z};
-	ray.direction = (t_vec){0, 0, -1};
-	return (ray);
-}
 
 static int		ft_min_ray(float t1, float t2, float *t)
 {
@@ -163,6 +155,10 @@ int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin){
 	return 0;
 }
 
+// void  ft_print_vect(t_vec v){
+// 	printf("x : %.2f y : %.2f z : %.2f\n", v.x, v.y, v.z);
+// }
+
 void update(t_mx *mx)
 {
 	t_ray 	ray;
@@ -172,7 +168,7 @@ void update(t_mx *mx)
 	{
 		for(int x = 0; x < WIN_W; x++)
 		{
-			ray = camera_ray(x - WIN_W / 2, y - WIN_H / 2);
+			ray = camera_ray(&mx->cam, x, y);
 			hit.t = INFINITY;
 			if (raycast(mx->objects, &ray, &hit))
 			{
@@ -182,7 +178,6 @@ void update(t_mx *mx)
 	}
 }
 
-
 int     main(int ac, char **av)
 {
     t_mx    v;
@@ -191,6 +186,8 @@ int     main(int ac, char **av)
     {
         if (av[1])
         {
+			ft_bzero(&v, sizeof(t_mx));
+			//ft_memset(&v, 0, sizeof(t_mx));
             if (!ft_open(av[1], &v)){
                 ft_putstr("error! please try a valid configuration file.\n");
 				exit(0);
