@@ -82,6 +82,47 @@ scene_element_options() {
         add_new_element_function
         elif [ $option == "plane" ];
         then
+            echo -e "please add its position vector"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its normal vector"
             read -p "x = " x
             while [ true ]
@@ -123,21 +164,21 @@ scene_element_options() {
                 fi
             done
             echo -e "$x $y $z" >> ./"$file_name_str".conf
-            echo -e "please add its distance !"
-            read -p "distance = " distance
-            while [ true ]
-            do
-                if ! [[ "$distance" =~ ^[0-9]+\.?[0-9]*$ ]]
-                then
-                    tput setaf 1;
-                    echo "Sorry positive numbers only !"
-                    tput setaf 9;
-                    read -p "distance = " distance
-                else
-                break
-                fi
-            done
-            echo -e "$distance" >> ./"$file_name_str".conf
+        #    echo -e "please add its distance !"
+        #    read -p "distance = " distance
+        #    while [ true ]
+        #    do
+        #        if ! [[ "$distance" =~ ^[0-9]+\.?[0-9]*$ ]]
+        #        then
+        #            tput setaf 1;
+        #            echo "Sorry positive numbers only !"
+        #            tput setaf 9;
+        #            read -p "distance = " distance
+        #        else
+        #        break
+        #        fi
+        #    done
+        #    echo -e "$distance" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
             echo -e "$color" >> ./"$file_name_str".conf
@@ -186,6 +227,21 @@ scene_element_options() {
                 fi
             done
             echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its intensity !"
+            read -p "intensity = " intensity
+            while [ true ]
+            do
+                if ! [[ "$intensity" =~ ^[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry positive numbers only !"
+                    tput setaf 9;
+                    read -p "intensity = " intensity
+                else
+                break
+                fi
+            done
+            echo -e "$intensity" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
             echo -e "$color" >> ./"$file_name_str".conf
@@ -528,6 +584,21 @@ scene_element_options() {
                 fi
             done
             echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its field of view !"
+            read -p "field of view = " fov
+            while [ true ]
+            do
+                if ! [[ "$fov" =~ ^[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry positive numbers only !"
+                    tput setaf 9;
+                    read -p "field of view = " fov
+                else
+                break
+                fi
+            done
+            echo -e "$fov" >> ./"$file_name_str".conf
             echo -e ";" >> ./"$file_name_str".conf
         add_new_element_function
         elif [ $option == "ray" ];
