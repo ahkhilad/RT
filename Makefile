@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/06 14:38:16 by ahkhilad          #+#    #+#              #
-#    Updated: 2019/10/24 19:21:59 by ahkhilad         ###   ########.fr        #
+#    Updated: 2020/06/18 02:55:31 by ahkhilad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,15 @@ SRCS = ./srcs/main.c ./srcs/parser.c ./srcs/launch.c ./srcs/primitives.c \
 		./srcs/objects.c ./srcs/parse_objects.c ./srcs/parse_utils.c \
 		./srcs/utils.c ./srcs/lights.c ./srcs/camera.c ./srcs/parse_camera.c
 
+INC = rtv1.h
+
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-EXEC = gcc $(CFLAGS) -lmlx -framework OpenGL -framework AppKit
+MLXFLAGS = -lmlx -lXext -lX11 -lm -lbsd
+
+EXEC = gcc $(CFLAGS) #$(MLXFLAGS) #-lmlx -framework OpenGL -framework AppKit
 
 OBJ = $(SRCS:.c=.o)
 
@@ -32,7 +36,7 @@ all: $(NAME)
 
 $(OBJ): $(SRCS)
 	@echo "\033[2;33m"
-	gcc -g -c $(SRCS) -I rtv1.h
+	gcc -c $(SRCS)
 	mv *.o ./srcs/
 	@echo "\033[0m"
 
@@ -48,7 +52,7 @@ $(LINALG):
 
 $(NAME): $(OBJ) $(LFT) $(LINALG)
 	@echo "\033[2;33m"
-	$(EXEC) $^ -o $@
+	$(EXEC) $^ -o $@ $(MLXFLAGS)
 	@echo "\033[0m"
 	@echo "\033[32;3mAll Set !\n\033[0m"
 

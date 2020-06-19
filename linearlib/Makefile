@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 19:50:48 by ahkhilad          #+#    #+#              #
-#    Updated: 2020/01/18 19:50:55 by ahkhilad         ###   ########.fr        #
+#    Updated: 2020/06/18 01:28:15 by ahkhilad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INC = linear_alg.h
 
 CFLAG = -Wextra -Wall -Werror
 
-EXEC = gcc $(CFLAG) -I $(INC)
+EXEC = gcc $(CFLAG) #-I $(INC)
 
 OBJ = $(SRC:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 17:51:10 by ahkhilad          #+#    #+#             */
-/*   Updated: 2019/04/14 15:31:42 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:09:04 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strnstr(const char *str, const char *needle, size_t len)
 
 	i = 0;
 	find = (char *)needle;
-	if (str == '\0' && find == '\0')
+	if (*str == '\0' && *find == '\0')
 		return (0);
 	while (str[i])
 	{

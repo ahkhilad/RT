@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:31:07 by ahkhilad          #+#    #+#             */
-/*   Updated: 2019/11/29 00:31:12 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/18 02:17:44 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define WIN_W 1280
 # define WIN_H 720
 
-# include "mlx.h"
+# include "../../minilibx_linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>

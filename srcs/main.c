@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main1.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/01/04 21:42:23 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/19 16:18:50 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
 
 static int		ft_min_ray(float t1, float t2, float *t)
 {
@@ -48,6 +47,29 @@ int sphere_intersect(t_object *sphere, t_ray *ray, float *tmin)
 	t1 = (-b + delta) / (2 * a);
 	t2 = (-b - delta) / (2 * a);
 	return (ft_min_ray(t1, t2, tmin));
+}
+
+int		plane_intersect(t_object *plane, t_ray *ray, float *tmin)
+{
+	t_vec	x;
+	float	a;
+	float	b;
+	float	t;
+	float	t1;
+
+	t = INFINITY;
+	x = ft_vectorsub(ray->source, plane->pos);
+	a = -1 * ft_dotproduct(x, plane->normal);
+	b = ft_dotproduct(ray->direction, plane->normal);
+	if (fabs(b) <= 1e-6)
+		return (0);
+	t1 = a / b;
+	if (t1 > 1e-6)
+	{
+		*tmin = t1;
+		return (1);
+	}	
+	return (0);
 }
 
 void	ft_compute_normals(t_hit *hit, t_ray *ray)
@@ -123,22 +145,34 @@ int	raycast(t_object *lst, t_ray *ray, t_hit *hit)
 	while (p)
 	{
 		if (p->type == SPHERE)
+		{
 			if (sphere_intersect(p, ray, &t))
 				if (hit->t > t)
 				{
 					hit->t = t;
 					hit->object = p;
 				}
+		}
+		else if (p->type == PLANE)
+		{
+			if (plane_intersect(p, ray, &t))
+				if (hit->t > t)
+				{
+					hit->t = t;
+					hit->object = p;
+				}
+		}
 		p = p->next;
 	}
 	if (hit->object == NULL)
 		return (0);
-	hit->p = ft_vectoradd(ray->source, ft_vectormulti(ray->direction, t));
+	hit->p = ft_vectoradd(ray->source, ft_vectormulti(ray->direction, hit->t));
 	ft_compute_normals(hit, ray);
 	return (1);
 }
 
-int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin){
+int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin)
+{
 	t_object	*p;
 	float		t;
 
@@ -147,9 +181,17 @@ int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin){
 	while (p)
 	{
 		if (p->type == SPHERE)
+		{
 			if (sphere_intersect(p, ray, &t))
 				if (t < *tmin)
 					return (1);
+		}
+		else if (p->type == PLANE)
+		{
+			if (plane_intersect(p, ray, &t))
+				if (t < *tmin)
+					return (1);
+		}
 		p = p->next;
 	}
 	return 0;

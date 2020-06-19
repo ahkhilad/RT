@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 14:16:41 by ahkhilad          #+#    #+#             */
-/*   Updated: 2019/07/03 15:05:37 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/18 00:04:24 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ static void		ft_fill(const char *str, char c, char **ptr)
 
 char			**ft_strsplit(const char *s, char c)
 {
-	size_t	count;
 	char	**ptr;
 
 	if (s)
 	{
-		count = 0;
 		ptr = NULL;
 		if (!(ptr = malloc(sizeof(char *) * ((ft_words_counter(s, c)) + 1))))
 			return (0);
