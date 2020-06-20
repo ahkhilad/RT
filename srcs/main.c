@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/06/19 16:18:50 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/20 19:33:49 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,47 @@ int		plane_intersect(t_object *plane, t_ray *ray, float *tmin)
 	return (0);
 }
 
+int		cylinder_intersect(t_object *cylinder, t_ray *ray, float *tmin)
+{
+	t_vec	x;
+	float	a;
+	float	b;
+	float	c;
+	float	delta;
+	float	t;
+	float	t1;
+	float	t2;
+
+	t = INFINITY;
+	x = ft_vectorsub(ray->source, cylinder->pos);
+	a = ft_dotproduct(ray->direction, ray->direction) - pow(ft_dotproduct(ray->direction, cylinder->axis), 2);
+	b = 2.0 * (ft_dotproduct(ray->direction, x) - (ft_dotproduct(ray->direction, cylinder->axis) * ft_dotproduct(x, cylinder->axis)));
+	c = ft_dotproduct(x, x) - pow(ft_dotproduct(x, cylinder->axis), 2) - cylinder->radius * cylinder->radius;
+	delta = b * b - 4.0 * a * c;
+	if (delta < 0)
+		return (0);
+	delta = sqrt(delta);
+	t1 = -b + delta / 2 * a;
+	t2 = -b - delta / 2 * a;
+	return (ft_min_ray(t1, t2, tmin));
+}
+
 void	ft_compute_normals(t_hit *hit, t_ray *ray)
 {
 	(void)ray;
+	t_vec	x;
+	float	m;
+
 	if (hit->object->type == SPHERE)
 		hit->n = ft_normalize(ft_vectorsub(hit->p, hit->object->pos));
 	else if (hit->object->type == PLANE)
 		hit->n = hit->object->normal;
+	else if (hit->object->type == CYLINDER)
+	{
+		x = ft_vectorsub(ray->source, hit->object->pos);
+		m = ft_dotproduct(ray->direction, hit->object->axis) * hit->t + ft_dotproduct(x, hit->object->axis);
+		hit->n = ft_normalize(ft_vectormulti(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), hit->object->axis), m));
+	}
 }
 
 t_vec	ft_light_computing(t_light *light, t_vec light_dir, t_hit *hit, t_ray *ray)
@@ -162,6 +196,15 @@ int	raycast(t_object *lst, t_ray *ray, t_hit *hit)
 					hit->object = p;
 				}
 		}
+		else if (p->type == CYLINDER)
+		{
+			if (cylinder_intersect(p, ray, &t))
+				if (hit->t > t)
+				{
+					hit->t = t;
+					hit->object = p;
+				}
+		}
 		p = p->next;
 	}
 	if (hit->object == NULL)
@@ -189,6 +232,12 @@ int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin)
 		else if (p->type == PLANE)
 		{
 			if (plane_intersect(p, ray, &t))
+				if (t < *tmin)
+					return (1);
+		}
+		else if (p->type == CYLINDER)
+		{
+			if (cylinder_intersect(p, ray, &t))
 				if (t < *tmin)
 					return (1);
 		}
