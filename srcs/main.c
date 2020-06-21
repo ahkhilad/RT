@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/06/20 19:33:49 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/21 20:09:49 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,15 @@ int		cylinder_intersect(t_object *cylinder, t_ray *ray, float *tmin)
 
 	t = INFINITY;
 	x = ft_vectorsub(ray->source, cylinder->pos);
-	a = ft_dotproduct(ray->direction, ray->direction) - pow(ft_dotproduct(ray->direction, cylinder->axis), 2);
-	b = 2.0 * (ft_dotproduct(ray->direction, x) - (ft_dotproduct(ray->direction, cylinder->axis) * ft_dotproduct(x, cylinder->axis)));
-	c = ft_dotproduct(x, x) - pow(ft_dotproduct(x, cylinder->axis), 2) - cylinder->radius * cylinder->radius;
+	a = ft_dotproduct(ray->direction, ray->direction) - powf(ft_dotproduct(ray->direction, cylinder->axis), 2.0);
+	b = 2.0 * ((ft_dotproduct(ray->direction, x) - (ft_dotproduct(ray->direction, cylinder->axis) * ft_dotproduct(x, cylinder->axis))));
+	c = ft_dotproduct(x, x) - powf(ft_dotproduct(x, cylinder->axis), 2.0) - cylinder->radius * cylinder->radius;
 	delta = b * b - 4.0 * a * c;
 	if (delta < 0)
 		return (0);
 	delta = sqrt(delta);
-	t1 = -b + delta / 2 * a;
-	t2 = -b - delta / 2 * a;
+	t1 = (-b + delta) / (2 * a);
+	t2 = (-b - delta) / (2 * a);
 	return (ft_min_ray(t1, t2, tmin));
 }
 
@@ -110,7 +110,7 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 	else if (hit->object->type == CYLINDER)
 	{
 		x = ft_vectorsub(ray->source, hit->object->pos);
-		m = ft_dotproduct(ray->direction, hit->object->axis) * hit->t + ft_dotproduct(x, hit->object->axis);
+		m = (ft_dotproduct(ray->direction, hit->object->axis) * hit->t) + ft_dotproduct(x, hit->object->axis);
 		hit->n = ft_normalize(ft_vectormulti(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), hit->object->axis), m));
 	}
 }
