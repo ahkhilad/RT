@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/06/21 20:09:49 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/23 22:51:36 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,34 @@ int		cylinder_intersect(t_object *cylinder, t_ray *ray, float *tmin)
 	x = ft_vectorsub(ray->source, cylinder->pos);
 	a = ft_dotproduct(ray->direction, ray->direction) - powf(ft_dotproduct(ray->direction, cylinder->axis), 2.0);
 	b = 2.0 * ((ft_dotproduct(ray->direction, x) - (ft_dotproduct(ray->direction, cylinder->axis) * ft_dotproduct(x, cylinder->axis))));
-	c = ft_dotproduct(x, x) - powf(ft_dotproduct(x, cylinder->axis), 2.0) - cylinder->radius * cylinder->radius;
+	c = ft_dotproduct(x, x) - powf(ft_dotproduct(x, cylinder->axis), 2.0) - (cylinder->radius * cylinder->radius);
+	delta = b * b - 4.0 * a * c;
+	if (delta < 0)
+		return (0);
+	delta = sqrt(delta);
+	t1 = (-b + delta) / (2 * a);
+	t2 = (-b - delta) / (2 * a);
+	return (ft_min_ray(t1, t2, tmin));
+}
+
+int		cone_intersect(t_object *cone, t_ray *ray, float *tmin)
+{
+	t_vec	x;
+	float	k;
+	float	a;
+	float	b;
+	float	c;
+	float	delta;
+	float	t;
+	float	t1;
+	float	t2;
+
+	t = INFINITY;
+	x = ft_vectorsub(ray->source, cone->pos);
+	k = tanf(cone->angle / 2.0);
+	a = ft_dotproduct(ray->direction, ray->direction) - ((1 + (k * k)) * (powf(ft_dotproduct(ray->direction, cone->axis), 2.0)));
+	b = 2.0 * (ft_dotproduct(ray->direction, x) - ((1 + (k * k)) * ft_dotproduct(ray->direction, cone->axis) * ft_dotproduct(x, cone->axis)));
+	c = ft_dotproduct(x, x) - ((1 + (k * k)) * (powf(ft_dotproduct(x, cone->axis), 2.0)));
 	delta = b * b - 4.0 * a * c;
 	if (delta < 0)
 		return (0);
@@ -102,6 +129,8 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 	(void)ray;
 	t_vec	x;
 	float	m;
+	float	k;
+	float	a;
 
 	if (hit->object->type == SPHERE)
 		hit->n = ft_normalize(ft_vectorsub(hit->p, hit->object->pos));
@@ -111,7 +140,15 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 	{
 		x = ft_vectorsub(ray->source, hit->object->pos);
 		m = (ft_dotproduct(ray->direction, hit->object->axis) * hit->t) + ft_dotproduct(x, hit->object->axis);
-		hit->n = ft_normalize(ft_vectormulti(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), hit->object->axis), m));
+		hit->n = ft_normalize(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), ft_vectormulti(hit->object->axis, m)));
+	}
+	else if (hit->object->type == CONE)
+	{
+		x = ft_vectorsub(ray->source, hit->object->pos);
+		m = (ft_dotproduct(ray->direction, hit->object->axis) * hit->t) + ft_dotproduct(x, hit->object->axis);
+		k = tanf(hit->object->angle / 2.0);
+		a = m * k * k;
+		hit->n = ft_normalize(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), ft_vectormulti(hit->object->axis, ((1 + (k * k)) * m))));
 	}
 }
 
@@ -205,6 +242,15 @@ int	raycast(t_object *lst, t_ray *ray, t_hit *hit)
 					hit->object = p;
 				}
 		}
+		else if (p->type == CONE)
+		{
+			if (cone_intersect(p, ray, &t))
+				if (hit->t > t)
+				{
+					hit->t = t;
+					hit->object = p;
+				}
+		}
 		p = p->next;
 	}
 	if (hit->object == NULL)
@@ -238,6 +284,12 @@ int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin)
 		else if (p->type == CYLINDER)
 		{
 			if (cylinder_intersect(p, ray, &t))
+				if (t < *tmin)
+					return (1);
+		}
+		else if (p->type == CONE)
+		{
+			if (cone_intersect(p, ray, &t))
 				if (t < *tmin)
 					return (1);
 		}

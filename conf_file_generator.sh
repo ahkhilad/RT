@@ -368,7 +368,7 @@ scene_element_options() {
         add_new_element_function
         elif [ $option == "cone" ];
         then
-            echo -e "please add its center vector"
+            echo -e "please add its position vector"
             read -p "x = " x
             while [ true ]
             do
@@ -409,62 +409,6 @@ scene_element_options() {
                 fi
             done
             echo -e "$x $y $z" >> ./"$file_name_str".conf
-            echo -e "please add its direction vector"
-            read -p "x = " x
-            while [ true ]
-            do
-                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
-                then
-                    tput setaf 1;
-                    echo "Sorry numbers only !"
-                    tput setaf 9;
-                    read -p "x = " x
-                else
-                break
-                fi
-            done
-            read -p "y = " y
-            while [ true ]
-            do
-                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
-                then
-                    tput setaf 1;
-                    echo "Sorry numbers only !"
-                    tput setaf 9;
-                    read -p "y = " y
-                else
-                break
-                fi
-            done
-            read -p "z = " z
-            while [ true ]
-            do
-                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
-                then
-                    tput setaf 1;
-                    echo "Sorry numbers only !"
-                    tput setaf 9;
-                    read -p "z = " z
-                else
-                break
-                fi
-            done
-            echo -e "$x $y $z" >> ./"$file_name_str".conf
-            echo -e "please add its radius !"
-            read -p "radius = " radius
-            while [ true ]
-            do
-                if ! [[ "$radius" =~ ^[0-9]+\.?[0-9]*$ ]]
-                then
-                    tput setaf 1;
-                    echo "Sorry positive numbers only !"
-                    tput setaf 9;
-                    read -p "radius = " radius
-                else
-                break
-                fi
-            done
-            echo -e "$radius" >> ./"$file_name_str".conf
             echo -e "please add its angle !"
             read -p "angle = " angle
             while [ true ]
@@ -480,21 +424,77 @@ scene_element_options() {
                 fi
             done
             echo -e "$angle" >> ./"$file_name_str".conf
-            echo -e "please add its height !"
-            read -p "height = " height
+            echo -e "please add its axis vector"
+            read -p "x = " x
             while [ true ]
             do
-                if ! [[ "$height" =~ ^[0-9]+\.?[0-9]*$ ]]
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
                 then
                     tput setaf 1;
-                    echo "Sorry positive numbers only !"
+                    echo "Sorry numbers only !"
                     tput setaf 9;
-                    read -p "height = " height
+                    read -p "x = " x
                 else
                 break
                 fi
             done
-            echo -e "$height" >> ./"$file_name_str".conf
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+        #    echo -e "please add its radius !"
+        #    read -p "radius = " radius
+        #    while [ true ]
+        #    do
+        #        if ! [[ "$radius" =~ ^[0-9]+\.?[0-9]*$ ]]
+        #        then
+        #            tput setaf 1;
+        #            echo "Sorry positive numbers only !"
+        #            tput setaf 9;
+        #            read -p "radius = " radius
+        #        else
+        #        break
+        #        fi
+        #    done
+        #    echo -e "$radius" >> ./"$file_name_str".conf
+        #    echo -e "please add its height !"
+        #    read -p "height = " height
+        #    while [ true ]
+        #    do
+        #        if ! [[ "$height" =~ ^[0-9]+\.?[0-9]*$ ]]
+        #        then
+        #            tput setaf 1;
+        #            echo "Sorry positive numbers only !"
+        #            tput setaf 9;
+        #            read -p "height = " height
+        #        else
+        #        break
+        #        fi
+        #    done
+        #    echo -e "$height" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
             echo -e "$color" >> ./"$file_name_str".conf

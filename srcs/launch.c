@@ -42,7 +42,7 @@ void setup(t_mx *v)
 	v->wptr = mlx_new_window(v->mptr, WIN_W, WIN_H, "RTv1");
 	v->iptr = mlx_new_image(v->mptr, WIN_W, WIN_H);
 	v->rt = (int *)mlx_get_data_addr(v->iptr, &v->bpp, &v->size, &v->end);
-	mlx_hook(v->wptr, 2, 0, key_press, v);
+	mlx_hook(v->wptr, 2, 1, key_press, v);
 	mlx_hook(v->wptr, 17, 0, red_button, v);
 }
 
