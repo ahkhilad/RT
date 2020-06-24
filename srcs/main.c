@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/06/23 22:51:36 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/24 02:26:31 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int sphere_intersect(t_object *sphere, t_ray *ray, float *tmin)
 	a = ft_dotproduct(ray->direction, ray->direction);
 	b = 2.0 * ft_dotproduct(ray->direction, x);
 	c = ft_dotproduct(x, x) - sphere->radius * sphere->radius;
-	delta = b * b - 4.0 * a * c;
+	delta = (b * b) - (4.0 * a * c);
 	if (delta < 0)
 		return (0);
-	delta = sqrt(delta);
+	delta = sqrtf(delta);
 	t1 = (-b + delta) / (2 * a);
 	t2 = (-b - delta) / (2 * a);
 	return (ft_min_ray(t1, t2, tmin));
@@ -59,7 +59,7 @@ int		plane_intersect(t_object *plane, t_ray *ray, float *tmin)
 
 	t = INFINITY;
 	x = ft_vectorsub(ray->source, plane->pos);
-	a = -1 * ft_dotproduct(x, plane->normal);
+	a = -1.0 * ft_dotproduct(x, plane->normal);
 	b = ft_dotproduct(ray->direction, plane->normal);
 	if (fabs(b) <= 1e-6)
 		return (0);
@@ -88,10 +88,10 @@ int		cylinder_intersect(t_object *cylinder, t_ray *ray, float *tmin)
 	a = ft_dotproduct(ray->direction, ray->direction) - powf(ft_dotproduct(ray->direction, cylinder->axis), 2.0);
 	b = 2.0 * ((ft_dotproduct(ray->direction, x) - (ft_dotproduct(ray->direction, cylinder->axis) * ft_dotproduct(x, cylinder->axis))));
 	c = ft_dotproduct(x, x) - powf(ft_dotproduct(x, cylinder->axis), 2.0) - (cylinder->radius * cylinder->radius);
-	delta = b * b - 4.0 * a * c;
+	delta = (b * b) - (4.0 * a * c);
 	if (delta < 0)
 		return (0);
-	delta = sqrt(delta);
+	delta = sqrtf(delta);
 	t1 = (-b + delta) / (2 * a);
 	t2 = (-b - delta) / (2 * a);
 	return (ft_min_ray(t1, t2, tmin));
@@ -112,13 +112,13 @@ int		cone_intersect(t_object *cone, t_ray *ray, float *tmin)
 	t = INFINITY;
 	x = ft_vectorsub(ray->source, cone->pos);
 	k = tanf(cone->angle / 2.0);
-	a = ft_dotproduct(ray->direction, ray->direction) - ((1 + (k * k)) * (powf(ft_dotproduct(ray->direction, cone->axis), 2.0)));
-	b = 2.0 * (ft_dotproduct(ray->direction, x) - ((1 + (k * k)) * ft_dotproduct(ray->direction, cone->axis) * ft_dotproduct(x, cone->axis)));
-	c = ft_dotproduct(x, x) - ((1 + (k * k)) * (powf(ft_dotproduct(x, cone->axis), 2.0)));
-	delta = b * b - 4.0 * a * c;
+	a = ft_dotproduct(ray->direction, ray->direction) - powf((1.0 + (k * k)) * ft_dotproduct(ray->direction, cone->axis), 2.0);
+	b = 2.0 * (ft_dotproduct(ray->direction, x) - ((1.0 + (k * k)) * ft_dotproduct(ray->direction, cone->axis) * ft_dotproduct(x, cone->axis)));
+	c = ft_dotproduct(x, x) - powf((1.0 + (k * k)) * ft_dotproduct(x, cone->axis), 2.0);
+	delta = (b * b) - (4.0 * a * c);
 	if (delta < 0)
 		return (0);
-	delta = sqrt(delta);
+	delta = sqrtf(delta);
 	t1 = (-b + delta) / (2 * a);
 	t2 = (-b - delta) / (2 * a);
 	return (ft_min_ray(t1, t2, tmin));
@@ -139,16 +139,16 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 	else if (hit->object->type == CYLINDER)
 	{
 		x = ft_vectorsub(ray->source, hit->object->pos);
-		m = (ft_dotproduct(ray->direction, hit->object->axis) * hit->t) + ft_dotproduct(x, hit->object->axis);
+		m = ft_dotproduct(ray->direction, ft_vectormulti(hit->object->axis, hit->t)) + ft_dotproduct(x, hit->object->axis);
 		hit->n = ft_normalize(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), ft_vectormulti(hit->object->axis, m)));
 	}
 	else if (hit->object->type == CONE)
 	{
 		x = ft_vectorsub(ray->source, hit->object->pos);
-		m = (ft_dotproduct(ray->direction, hit->object->axis) * hit->t) + ft_dotproduct(x, hit->object->axis);
+		m = ft_dotproduct(ray->direction, ft_vectormulti(hit->object->axis, hit->t)) + ft_dotproduct(x, hit->object->axis);
 		k = tanf(hit->object->angle / 2.0);
 		a = m * k * k;
-		hit->n = ft_normalize(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), ft_vectormulti(hit->object->axis, ((1 + (k * k)) * m))));
+		hit->n = ft_normalize(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), ft_vectormulti(hit->object->axis, ((1.0 + (k * k)) * m))));
 	}
 }
 
