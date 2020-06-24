@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/06/24 02:26:31 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/24 14:03:11 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 	float	m;
 	float	k;
 	float	a;
-
+	
 	if (hit->object->type == SPHERE)
 		hit->n = ft_normalize(ft_vectorsub(hit->p, hit->object->pos));
 	else if (hit->object->type == PLANE)
