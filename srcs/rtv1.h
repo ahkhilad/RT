@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:31:07 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/06/24 15:10:28 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/25 23:07:43 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define WIN_W 1280
 # define WIN_H 720
 
-#define PI 3.14159265358979323846
+//# define PI 3.14159265358979323846
 
 # include "../../minilibx_linux/mlx.h"
 # include <fcntl.h>
@@ -155,6 +155,7 @@ int         ft_strsplit_print(char **tab);
 int		    ft_special_atoi_base(char *str);
 t_vec       vect_from_hexa(int rgb);
 t_vec       string_to_vect(char *str);
+float       deg_to_rad(float angle);
 
 void        ft_parse_sphere(t_mx *v, char **token);
 void        ft_parse_plane(t_mx *v, char **token);

@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/06/24 14:03:11 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/06/25 23:00:32 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ int		cone_intersect(t_object *cone, t_ray *ray, float *tmin)
 
 	t = INFINITY;
 	x = ft_vectorsub(ray->source, cone->pos);
-	k = tanf(cone->angle / 2.0);
-	a = ft_dotproduct(ray->direction, ray->direction) - powf((1.0 + (k * k)) * ft_dotproduct(ray->direction, cone->axis), 2.0);
+	k = tanf(deg_to_rad(cone->angle) / 2.0);
+	a = ft_dotproduct(ray->direction, ray->direction) - (1.0 + (k * k)) * powf(ft_dotproduct(ray->direction, cone->axis), 2.0);
 	b = 2.0 * (ft_dotproduct(ray->direction, x) - ((1.0 + (k * k)) * ft_dotproduct(ray->direction, cone->axis) * ft_dotproduct(x, cone->axis)));
-	c = ft_dotproduct(x, x) - powf((1.0 + (k * k)) * ft_dotproduct(x, cone->axis), 2.0);
+	c = ft_dotproduct(x, x) - (1.0 + (k * k)) * powf(ft_dotproduct(x, cone->axis), 2.0);
 	delta = (b * b) - (4.0 * a * c);
 	if (delta < 0)
 		return (0);
@@ -146,7 +146,7 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 	{
 		x = ft_vectorsub(ray->source, hit->object->pos);
 		m = ft_dotproduct(ray->direction, ft_vectormulti(hit->object->axis, hit->t)) + ft_dotproduct(x, hit->object->axis);
-		k = tanf(hit->object->angle / 2.0);
+		k = tanf(deg_to_rad(hit->object->angle) / 2.0);
 		a = m * k * k;
 		hit->n = ft_normalize(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), ft_vectormulti(hit->object->axis, ((1.0 + (k * k)) * m))));
 	}

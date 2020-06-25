@@ -5,9 +5,9 @@ t_vec   translation(t_vec a, t_vec b)
     return (ft_vectoradd(a, b));
 }
 
-static double  deg_to_rad(double angle)
+float  deg_to_rad(float angle)
 {
-    return ((angle * PI) / 180);
+    return ((angle * M_PI) / 180);
 }
 
 t_vec   x_rotation(t_vec v, double theta)
