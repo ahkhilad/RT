@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:36 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/01/18 20:19:29 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/07/01 03:23:02 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
 
 void    ft_token_handle(t_mx *v, char **token)
 {

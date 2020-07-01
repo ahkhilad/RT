@@ -2,10 +2,12 @@
 
 float clamp(float value, float min, float max)
 {
-    if (value < min){
+    if (value < min)
+    {
         value = min;
     }
-    else if (value > max){
+    else if (value > max)
+    {
         value = max;
     }
     return (value);

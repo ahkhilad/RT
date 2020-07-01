@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linear_alg.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:08:06 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/01/18 20:10:01 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/07/01 03:00:22 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ float			ft_dotproduct(t_vec a, t_vec b);
 t_vec			ft_crossproduct(t_vec a, t_vec b);
 t_vec			ft_vectoradd(t_vec a, t_vec b);
 t_vec			ft_vectorsub(t_vec a, t_vec b);
-t_vec		ft_vectormulti(t_vec	c, float scalar);
+t_vec			ft_vectormulti(t_vec c, float scalar);
 
 #endif

@@ -75,6 +75,88 @@ scene_element_options() {
                 fi
             done
             echo -e "$radius" >> ./"$file_name_str".conf
+            echo -e "please add its rotation vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry number only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its translation vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry number only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
             echo -e "please add its color in Hexadecimal !"
             read -p "color = " color
             echo -e "$color" >> ./"$file_name_str".conf
@@ -144,6 +226,88 @@ scene_element_options() {
                 then
                     tput setaf 1;
                     echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its rotation vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry number only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its translation vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry number only !"
                     tput setaf 9;
                     read -p "y = " y
                 else
@@ -346,6 +510,88 @@ scene_element_options() {
                 fi
             done
             echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its rotation vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry number only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its translation vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry number only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
         #    echo -e "please add its height !"
         #    read -p "height = " height
         #    while [ true ]
@@ -445,6 +691,88 @@ scene_element_options() {
                 then
                     tput setaf 1;
                     echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its rotation vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry number only !"
+                    tput setaf 9;
+                    read -p "y = " y
+                else
+                break
+                fi
+            done
+            read -p "z = " z
+            while [ true ]
+            do
+                if ! [[ "$z" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "z = " z
+                else
+                break
+                fi
+            done
+            echo -e "$x $y $z" >> ./"$file_name_str".conf
+            echo -e "please add its translation vector !"
+            read -p "x = " x
+            while [ true ]
+            do
+                if ! [[ "$x" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry numbers only !"
+                    tput setaf 9;
+                    read -p "x = " x
+                else
+                break
+                fi
+            done
+            read -p "y = " y
+            while [ true ]
+            do
+                if ! [[ "$y" =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]
+                then
+                    tput setaf 1;
+                    echo "Sorry number only !"
                     tput setaf 9;
                     read -p "y = " y
                 else

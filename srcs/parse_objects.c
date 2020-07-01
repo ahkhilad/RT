@@ -11,9 +11,13 @@ void    ft_parse_sphere(t_mx *v, char **token)
     if (len > 1 && token[1])
         object.pos = string_to_vect(token[1]);
     if (len > 2 && token[2])
-            object.radius = ft_atof(token[2]);
+        object.radius = ft_atof(token[2]);
     if (len > 3 && token[3])
-            object.color = vect_from_hexa(ft_special_atoi_base(token[3]));
+        object.rot = string_to_vect(token[3]);
+    if (len > 4 && token[4])
+        object.trans = string_to_vect(token[4]);
+    if (len > 5 && token[5])
+        object.color = vect_from_hexa(ft_special_atoi_base(token[5]));
     ft_object_push(&v->objects, ft_object_new(object));
 }
 
@@ -30,7 +34,11 @@ void    ft_parse_plane(t_mx *v, char **token)
     if (len > 2 && token[2])
         object.normal = string_to_vect(token[2]);
     if (len > 3 && token[3])
-        object.color = vect_from_hexa(ft_special_atoi_base(token[3]));
+        object.rot = string_to_vect(token[3]);
+    if (len > 4 && token[4])
+        object.trans = string_to_vect(token[4]);
+    if (len > 5 && token[5])
+        object.color = vect_from_hexa(ft_special_atoi_base(token[5]));
     ft_object_push(&v->objects, ft_object_new(object));
 }
 
@@ -49,7 +57,11 @@ void    ft_parse_cone(t_mx *v, char **token)
     if (len > 3 && token[3])
         object.axis = string_to_vect(token[3]);
     if (len > 4 && token[4])
-        object.color = vect_from_hexa(ft_special_atoi_base(token[4]));
+        object.rot = string_to_vect(token[4]);
+    if (len > 5 && token[5])
+        object.trans = string_to_vect(token[5]);
+    if (len > 6 && token[6])
+        object.color = vect_from_hexa(ft_special_atoi_base(token[6]));
     ft_object_push(&v->objects, ft_object_new(object));
 }
 
@@ -68,7 +80,11 @@ void    ft_parse_cylinder(t_mx *v, char **token)
     if (len > 3 && token[3])
         object.axis = string_to_vect(token[3]);
     if (len > 4 && token[4])
-        object.color = vect_from_hexa(ft_special_atoi_base(token[4]));
+        object.rot = string_to_vect(token[4]);
+    if (len > 5 && token[5])
+        object.trans = string_to_vect(token[5]);
+    if (len > 6 && token[6])
+        object.color = vect_from_hexa(ft_special_atoi_base(token[6]));
     ft_object_push(&v->objects, ft_object_new(object));
 }
 

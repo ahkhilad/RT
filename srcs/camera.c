@@ -1,6 +1,6 @@
 #include "rtv1.h"
 
-t_cam     ft_camera_create(t_vec pos,  t_vec at, t_vec vup, float vfov)
+t_cam     ft_camera_create(t_vec pos, t_vec at, t_vec vup, float vfov)
 {
     t_cam   cam;
     float   theta;
@@ -25,7 +25,8 @@ t_cam     ft_camera_create(t_vec pos,  t_vec at, t_vec vup, float vfov)
 
 }
 
-t_ray camera_ray(t_cam *cam, int x, int y){
+t_ray camera_ray(t_cam *cam, int x, int y)
+{
 	t_ray ray;
 	t_vec tmp;
 

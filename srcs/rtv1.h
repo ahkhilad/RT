@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:31:07 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/06/25 23:07:43 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/07/01 03:24:14 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,10 @@ int     rgb_to_int(t_vec v);
 
 int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin);
 
-t_object        ft_sphere(t_vec pos, float radius, t_vec color);
-t_object        ft_plane(t_vec pos, t_vec normal, t_vec color);
-t_object        ft_cone(t_vec pos, t_vec axis, float angle, t_vec color);
-t_object        ft_cylinder(t_vec pos, t_vec axis, float radius, t_vec color);
+//t_object        ft_sphere(t_vec pos, float radius, t_vec color);
+//t_object        ft_plane(t_vec pos, t_vec normal, t_vec color);
+//t_object        ft_cone(t_vec pos, t_vec axis, float angle, t_vec color);
+//t_object        ft_cylinder(t_vec pos, t_vec axis, float radius, t_vec color);
 
 t_object        *ft_object_new(t_object o);
 void            ft_object_push(t_object **lst, t_object *nw);
@@ -156,6 +156,11 @@ int		    ft_special_atoi_base(char *str);
 t_vec       vect_from_hexa(int rgb);
 t_vec       string_to_vect(char *str);
 float       deg_to_rad(float angle);
+
+t_vec       translation(t_vec a, t_vec b);
+t_vec       x_rotation(t_vec v, float theta);
+t_vec       y_rotation(t_vec v, float theta);
+t_vec       z_rotation(t_vec v, float theta);
 
 void        ft_parse_sphere(t_mx *v, char **token);
 void        ft_parse_plane(t_mx *v, char **token);

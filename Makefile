@@ -6,7 +6,7 @@
 #    By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/06 14:38:16 by ahkhilad          #+#    #+#              #
-#    Updated: 2020/06/25 21:27:59 by ahkhilad         ###   ########.fr        #
+#    Updated: 2020/07/01 03:23:53 by ahkhilad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LFT = libft/libft.a
 
 LINALG = linearlib/linear_alg.a
 
-SRCS = ./srcs/main.c ./srcs/parser.c ./srcs/launch.c ./srcs/primitives.c \
+SRCS = ./srcs/main.c ./srcs/parser.c ./srcs/launch.c \
 		./srcs/objects.c ./srcs/parse_objects.c ./srcs/parse_utils.c \
 		./srcs/utils.c ./srcs/lights.c ./srcs/camera.c ./srcs/parse_camera.c \
 		./srcs/transforms.c

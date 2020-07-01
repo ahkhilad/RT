@@ -6,7 +6,6 @@ void    ft_parse_camera(t_mx *v, char **token)
     t_vec       pos;
     t_vec       at;
     float       vfov;
-
     int         len;
     
     len = ft_strsplit_len(token);

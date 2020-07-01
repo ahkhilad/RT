@@ -1,6 +1,7 @@
 #include "rtv1.h"
 
-void ft_strsplit_free(char ***tab){
+void ft_strsplit_free(char ***tab)
+{
     int     i;
 
     i = -1;
@@ -9,7 +10,8 @@ void ft_strsplit_free(char ***tab){
     free((*tab));
 }
 
- int      ft_strsplit_len(char **tab){
+int      ft_strsplit_len(char **tab)
+{
     int     i;
 
     i = -1;
@@ -18,7 +20,8 @@ void ft_strsplit_free(char ***tab){
     return (i);
 }
 
- int      ft_strsplit_print(char **tab){
+int      ft_strsplit_print(char **tab)
+{
     int     i;
 
     i = -1;
@@ -66,7 +69,8 @@ int		ft_special_atoi_base(char *str)
 	return (v.somme);
 }
 
-t_vec   vect_from_hexa(int rgb){
+t_vec   vect_from_hexa(int rgb)
+{
     t_vec v;
 
     int red = (rgb >> 16) & 0xFF;
@@ -79,7 +83,8 @@ t_vec   vect_from_hexa(int rgb){
     return (v);
 }
 
-t_vec   string_to_vect(char *str){
+t_vec   string_to_vect(char *str)
+{
     t_vec   v;
     char    **split;
 
