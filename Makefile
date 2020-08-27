@@ -6,7 +6,7 @@
 #    By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/06 14:38:16 by ahkhilad          #+#    #+#              #
-#    Updated: 2020/07/01 03:23:53 by ahkhilad         ###   ########.fr        #
+#    Updated: 2020/08/27 19:22:05 by ahkhilad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,13 @@ SRCS = ./srcs/main.c ./srcs/parser.c ./srcs/launch.c \
 		./srcs/utils.c ./srcs/lights.c ./srcs/camera.c ./srcs/parse_camera.c \
 		./srcs/transforms.c
 
+#SRCS = ./srcs/main1.c ./srcs/vec2.c ./srcs/vec1.c
+
 INC = rtv1.h
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 MLXFLAGS = -lmlx -lXext -lX11 -lm -lbsd
 

@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/07/01 02:33:36 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/08/27 20:31:11 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int		cone_intersect(t_object *cone, t_ray *ray, float *tmin)
 
 void	ft_compute_normals(t_hit *hit, t_ray *ray)
 {
-	(void)ray;
+	//(void)ray;
 	t_vec	x;
 	float	m;
 	float	k;
@@ -199,7 +199,7 @@ int 	ft_shade_object(t_hit *hit, t_light *lights, t_object *lst, t_ray *ray)
 		shadow_ray.direction = light_dir;
 		t = ft_magnitude(ft_vectorsub(light->pos, hit->p));
 		if (!shadow_cast(lst, &shadow_ray, &t))
-		 color = ft_vectoradd(color, ft_light_computing(light, light_dir, hit, ray));
+			color = ft_vectoradd(color, ft_light_computing(light, light_dir, hit, ray));
 		light = light->next;
 	}
 	return (rgb_to_int(clamp_vect(color)));
@@ -229,13 +229,9 @@ t_vec	ft_translate_object(t_vec to_trans, t_vec trans, _Bool invert)
 	t_vec	result;
 
 	if (invert)
-	{
-		result = translation(to_trans, ft_negative(trans));
-	}
+		result = ft_translation(to_trans, ft_negative(trans));
 	else
-	{
-		result = translation(to_trans, trans);
-	}
+		result = ft_translation(to_trans, trans);
 	return (result);
 }
 
@@ -243,22 +239,13 @@ t_ray	ft_transform_ray(t_object *obj, t_ray *raw, _Bool invert)
 {
 	t_ray	result;
 
-	if (invert)
-	{
-		result.source = ft_rotate_object(raw->source, obj->rot, invert);
-		result.source = ft_translate_object(raw->source, obj->trans, invert);
-		result.direction = ft_rotate_object(raw->direction, obj->rot, invert);
-	}
-	else
-	{
-		result.source = ft_rotate_object(raw->source, obj->rot, invert);
-		result.source = ft_translate_object(raw->source, obj->trans, invert);
-		result.direction = ft_rotate_object(raw->direction, obj->rot, invert);
-	}
+	result.source = ft_rotate_object(raw->source, obj->rot, invert);
+	result.source = ft_translate_object(raw->source, obj->trans, invert);
+	result.direction = ft_rotate_object(raw->direction, obj->rot, invert);
 	return (result);
 }
 
-int	raycast(t_object *lst, t_ray *raw, t_hit *hit)
+int		raycast(t_object *lst, t_ray *raw, t_hit *hit)
 {
 	t_object	*p;
 	float		t;
@@ -319,11 +306,13 @@ int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin)
 {
 	t_object	*p;
 	float		t;
+	//t_ray		ra;
 
 	t = INFINITY;
 	p = lst;
 	while (p)
 	{
+		//ra = ft_transform_ray(p, ray, 1);
 		if (p->type == SPHERE)
 		{
 			if (sphere_intersect(p, ray, &t))

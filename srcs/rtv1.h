@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:31:07 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/07/01 03:24:14 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/08/04 19:30:18 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ typedef struct          s_ray
 }                       t_ray;
 
 
-typedef enum e_type{
+typedef enum e_type
+{
     NONE, SPHERE = 10, PLANE, CONE, CYLINDER
 }           t_type;
 
@@ -157,7 +158,7 @@ t_vec       vect_from_hexa(int rgb);
 t_vec       string_to_vect(char *str);
 float       deg_to_rad(float angle);
 
-t_vec       translation(t_vec a, t_vec b);
+t_vec       ft_translation(t_vec a, t_vec b);
 t_vec       x_rotation(t_vec v, float theta);
 t_vec       y_rotation(t_vec v, float theta);
 t_vec       z_rotation(t_vec v, float theta);

@@ -1064,6 +1064,5 @@ add_new_element_function() {
         add_new_element_function
     fi
 }
-
 file_name_function
 scene_element_options
