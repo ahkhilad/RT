@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/08/27 20:31:11 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:55:35 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ int		plane_intersect(t_object *plane, t_ray *ray, float *tmin)
 	if (fabs(b) <= 1e-6)
 		return (0);
 	t1 = a / b;
-	if (t1 > 1e-6)
+	if (t1 > 1e-2 && t1 < *tmin)
 	{
 		*tmin = t1;
 		return (1);
-	}	
+	}
 	return (0);
 }
 
