@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:31:07 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/08/04 19:30:18 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/10/06 01:44:55 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ t_vec       vect_from_hexa(int rgb);
 t_vec       string_to_vect(char *str);
 float       deg_to_rad(float angle);
 
-t_vec       ft_translation(t_vec a, t_vec b);
+//t_vec       ft_translation(t_vec a, t_vec b);
 t_vec       x_rotation(t_vec v, float theta);
 t_vec       y_rotation(t_vec v, float theta);
 t_vec       z_rotation(t_vec v, float theta);

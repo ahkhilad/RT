@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/09/30 18:55:35 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:31:24 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ int 	ft_shade_object(t_hit *hit, t_light *lights, t_object *lst, t_ray *ray)
 	return (rgb_to_int(clamp_vect(color)));
 }
 
-t_vec	ft_rotate_object(t_vec to_rot, t_vec rot, _Bool invert)
+t_vec	ft_rotate_object(t_vec to_rot, t_vec rot, int invert)
 {
 	t_vec	result;
 
@@ -224,23 +224,32 @@ t_vec	ft_rotate_object(t_vec to_rot, t_vec rot, _Bool invert)
 	return (result);
 }
 
-t_vec	ft_translate_object(t_vec to_trans, t_vec trans, _Bool invert)
+t_vec	ft_translate_object(t_vec to_trans, t_vec trans, int invert)
 {
 	t_vec	result;
 
 	if (invert)
-		result = ft_translation(to_trans, ft_negative(trans));
+	{
+		result.x = to_trans.x - trans.x;
+		result.y = to_trans.y - trans.y;
+		result.z = to_trans.z - trans.z;
+	}
 	else
-		result = ft_translation(to_trans, trans);
+	{
+		result.x = to_trans.x + trans.x;
+		result.y = to_trans.y + trans.y;
+		result.z = to_trans.z + trans.z;
+	}
 	return (result);
 }
 
-t_ray	ft_transform_ray(t_object *obj, t_ray *raw, _Bool invert)
+t_ray	ft_transform_ray(t_object *obj, t_ray *raw, int invert)
 {
 	t_ray	result;
 
+	result = *raw;
 	result.source = ft_rotate_object(raw->source, obj->rot, invert);
-	result.source = ft_translate_object(raw->source, obj->trans, invert);
+	result.source = ft_translate_object(result.source, obj->trans, invert);
 	result.direction = ft_rotate_object(raw->direction, obj->rot, invert);
 	return (result);
 }
@@ -250,9 +259,11 @@ int		raycast(t_object *lst, t_ray *raw, t_hit *hit)
 	t_object	*p;
 	float		t;
 	t_ray		ray;
+	t_ray		save;
 
 	t = INFINITY;
 	hit->object = NULL;
+	hit->t = INFINITY;
 	p = lst;
 	while (p)
 	{
@@ -264,6 +275,7 @@ int		raycast(t_object *lst, t_ray *raw, t_hit *hit)
 				{
 					hit->t = t;
 					hit->object = p;
+					save = ray;
 				}
 		}
 		else if (p->type == PLANE)
@@ -273,6 +285,7 @@ int		raycast(t_object *lst, t_ray *raw, t_hit *hit)
 				{
 					hit->t = t;
 					hit->object = p;
+					save = ray;
 				}
 		}
 		else if (p->type == CYLINDER)
@@ -282,6 +295,7 @@ int		raycast(t_object *lst, t_ray *raw, t_hit *hit)
 				{
 					hit->t = t;
 					hit->object = p;
+					save = ray;
 				}
 		}
 		else if (p->type == CONE)
@@ -291,14 +305,19 @@ int		raycast(t_object *lst, t_ray *raw, t_hit *hit)
 				{
 					hit->t = t;
 					hit->object = p;
+					save = ray;
 				}
 		}
 		p = p->next;
 	}
 	if (hit->object == NULL)
 		return (0);
-	hit->p = ft_vectoradd(ray.source, ft_vectormulti(ray.direction, hit->t));
-	ft_compute_normals(hit, &ray);
+	hit->p = ft_vectoradd(save.source, ft_vectormulti(save.direction, hit->t));
+	ft_compute_normals(hit, &save);
+	hit->p = ft_translate_object(hit->p, hit->object->trans, 0);
+	hit->p = ft_rotate_object(hit->p, hit->object->rot, 0);
+	hit->n = ft_rotate_object(hit->n, hit->object->rot, 0);
+	hit->n = ft_normalize(hit->n);
 	return (1);
 }
 
@@ -306,34 +325,34 @@ int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin)
 {
 	t_object	*p;
 	float		t;
-	//t_ray		ra;
+	t_ray		ra;
 
 	t = INFINITY;
 	p = lst;
 	while (p)
 	{
-		//ra = ft_transform_ray(p, ray, 1);
+		ra = ft_transform_ray(p, ray, 1);
 		if (p->type == SPHERE)
 		{
-			if (sphere_intersect(p, ray, &t))
+			if (sphere_intersect(p, &ra, &t))
 				if (t < *tmin)
 					return (1);
 		}
 		else if (p->type == PLANE)
 		{
-			if (plane_intersect(p, ray, &t))
+			if (plane_intersect(p, &ra, &t))
 				if (t < *tmin)
 					return (1);
 		}
 		else if (p->type == CYLINDER)
 		{
-			if (cylinder_intersect(p, ray, &t))
+			if (cylinder_intersect(p, &ra, &t))
 				if (t < *tmin)
 					return (1);
 		}
 		else if (p->type == CONE)
 		{
-			if (cone_intersect(p, ray, &t))
+			if (cone_intersect(p, &ra, &t))
 				if (t < *tmin)
 					return (1);
 		}

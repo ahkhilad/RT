@@ -1,9 +1,9 @@
 #include "rtv1.h"
 
-t_vec   ft_translation(t_vec a, t_vec b)
+/*t_vec   ft_translation(t_vec a, t_vec b)
 {
     return (ft_vectoradd(a, b));
-}
+}*/
 
 float  deg_to_rad(float angle)
 {
