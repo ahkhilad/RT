@@ -7,15 +7,15 @@ t_cam     ft_camera_create(t_vec pos, t_vec at, t_vec vup, float vfov)
     float   half_height;
     float   half_width;
 
-    pos.z += 0.01;
+    pos.z += 0.01; //
     cam.pos = pos;
-    cam.fov = vfov;
-    theta = vfov * M_PI / 180.0f;
-    half_height = tan(theta / 2.0);
+    cam.fov = vfov; //vertical field of view of camera//
+    theta = vfov * M_PI / 180.0; // theta is the angle of vfov in radien//
+    half_height = tanf(theta / 2.0);
     half_width = ((float)WIN_W / (float)WIN_H) * half_height;
-    cam.forward = ft_normalize(ft_vectorsub(pos, at));
-    cam.u = ft_normalize(ft_crossproduct(vup, cam.forward));
-    cam.v = ft_crossproduct(cam.forward, cam.u);
+    cam.forward = ft_normalize(ft_vectorsub(pos, at)); // distance between the lookat and the cam pos//
+    cam.u = ft_normalize(ft_crossproduct(vup, cam.forward)); // u is the width of the cam plane.. vup is the vector mtwazi m3a y axis dyal camera //
+    cam.v = ft_crossproduct(cam.forward, cam.u); // v is the height of the cam plane//
     cam.lower_left_corner = ft_vectoradd(ft_vectormulti(cam.u, half_width), ft_vectormulti(cam.v, half_height));
     cam.lower_left_corner = ft_vectoradd(cam.lower_left_corner, cam.forward);
     cam.lower_left_corner = ft_vectorsub(cam.pos, cam.lower_left_corner);

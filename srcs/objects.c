@@ -41,10 +41,13 @@ void    ft_object_clear(t_object **lst)
 {
     t_object    *p;
 
-    while ((*lst) != NULL)
+    if (lst == NULL)
+        return ;
+    while (*lst)
     {
-        p = (*lst);
-        (*lst) = (*lst)->next;
+        p = *lst;
+        if (p->next)
+            *lst = p->next;
         free(p);
     }
 }

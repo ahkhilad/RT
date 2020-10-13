@@ -43,7 +43,8 @@ void        ft_light_clear(t_light **lst)
     while (*lst)
     {
         ptr = *lst;
-        *lst = ptr->next;
+        if (ptr->next)
+            *lst = ptr->next;
         free(ptr);
     }
 }

@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:31:07 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/10/06 01:44:55 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/10/10 21:56:36 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define RTV1_H
 
 # define BUFF_SIZE 100000
+
+//# define WIN_W 1920
+//# define WIN_H 1080
 
 # define WIN_W 1280
 # define WIN_H 720
@@ -172,6 +175,5 @@ void        ft_parse_light(t_mx *v, char **token);
 void        ft_parse_camera(t_mx *v, char **token);
 t_cam       ft_camera_create(t_vec pos,  t_vec at, t_vec vup, float vfov);
 t_ray       camera_ray(t_cam *cam, int x, int y);
-
 
 # endif

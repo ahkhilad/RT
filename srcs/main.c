@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/10/07 16:31:24 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/10/13 17:04:57 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		cylinder_intersect(t_object *cylinder, t_ray *ray, float *tmin)
 	t = INFINITY;
 	x = ft_vectorsub(ray->source, cylinder->pos);
 	a = ft_dotproduct(ray->direction, ray->direction) - powf(ft_dotproduct(ray->direction, cylinder->axis), 2.0);
-	b = 2.0 * ((ft_dotproduct(ray->direction, x) - (ft_dotproduct(ray->direction, cylinder->axis) * ft_dotproduct(x, cylinder->axis))));
+	b = 2.0 * (ft_dotproduct(ray->direction, x) - (ft_dotproduct(ray->direction, cylinder->axis) * ft_dotproduct(x, cylinder->axis)));
 	c = ft_dotproduct(x, x) - powf(ft_dotproduct(x, cylinder->axis), 2.0) - (cylinder->radius * cylinder->radius);
 	delta = (b * b) - (4.0 * a * c);
 	if (delta < 0)
@@ -211,14 +211,14 @@ t_vec	ft_rotate_object(t_vec to_rot, t_vec rot, int invert)
 
 	if (invert)
 	{
+		to_rot = z_rotation(to_rot, -rot.z);
+		to_rot = y_rotation(to_rot, -rot.y);
 		result = x_rotation(to_rot, -rot.x);
-		result = y_rotation(to_rot, -rot.y);
-		result = z_rotation(to_rot, -rot.z);
 	}
 	else
 	{
-		result = x_rotation(to_rot, rot.x);
-		result = y_rotation(to_rot, rot.y);
+		to_rot = x_rotation(to_rot, rot.x);
+		to_rot = y_rotation(to_rot, rot.y);
 		result = z_rotation(to_rot, rot.z);
 	}
 	return (result);
