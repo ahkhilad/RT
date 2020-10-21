@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:36 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/07/01 03:23:02 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:32:30 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void    ft_blocks(t_mx *v, char *line)
     char    **tokens;
     int     i;
 
-
+    if (ft_split_check(line) == 0)
+        return ;
     if (!(blocks = ft_strsplit(line, ';')))
         return ;
     i = -1;
@@ -79,13 +80,12 @@ int		ft_open(char *str, t_mx *v)
 	line = ft_strnew(0);
 	while ((rd = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-        if (buff[0] != '\0' && !ft_isalnum(buff[0]))
-            break;
 		buff[rd] = '\0';
 		tmp = line;
 		line = ft_strjoin(line, buff);
 		free(tmp);
 	}
+    //ft_putendl(line);
     ft_blocks(v, line);
     free(line);
     close(fd);

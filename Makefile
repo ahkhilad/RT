@@ -6,7 +6,7 @@
 #    By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/06 14:38:16 by ahkhilad          #+#    #+#              #
-#    Updated: 2020/08/27 19:22:05 by ahkhilad         ###   ########.fr        #
+#    Updated: 2020/10/21 09:44:11 by ahkhilad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,11 @@ INC = rtv1.h
 
 CC = gcc
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 MLXFLAGS = -lmlx -lXext -lX11 -lm -lbsd
 
-EXEC = gcc $(CFLAGS) #$(MLXFLAGS) #-lmlx -framework OpenGL -framework AppKit
+EXEC = gcc -g $(CFLAGS) #$(MLXFLAGS) #-lmlx -framework OpenGL -framework AppKit
 
 OBJ = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/10/13 17:04:57 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/10/20 17:40:50 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,15 +154,26 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 
 t_vec	ft_light_computing(t_light *light, t_vec light_dir, t_hit *hit, t_ray *ray)
 {
+	float		ambient_pow;
+	t_vec		ambient;
 	float 		lambert;
 	t_vec		color;
 	float		reflect;
 	float		phong_term;
 	t_vec		phong_dir;
+
+	// the ambient calculation;
+
+	color = (t_vec){0.0f, 0.0f, 0.0f};
+	ambient_pow = 0.05f;
+	ambient = ft_vectormulti(light->color, ambient_pow);
+	color.x = ambient.x * hit->object->color.x;
+	color.y = ambient.y * hit->object->color.y;
+	color.z = ambient.z * hit->object->color.z;
 		
 	// the following is the diffuse calculation;
 
-	color = (t_vec){0.0f, 0.0f, 0.0f};
+	//color = (t_vec){0.0f, 0.0f, 0.0f};
 	lambert = fmax(0.0f, ft_dotproduct(light_dir, hit->n));
 	color = ft_vectoradd(color, ft_vectormulti(hit->object->color, lambert));
 
@@ -172,7 +183,7 @@ t_vec	ft_light_computing(t_light *light, t_vec light_dir, t_hit *hit, t_ray *ray
 	phong_dir = ft_vectorsub(light_dir, ft_vectormulti(hit->n, reflect));
 	phong_term = fmax(ft_dotproduct(phong_dir, ray->direction), 0.0f);
 	phong_term = 1.0f * powf(phong_term, 90.0f) * 1.0f;
-	color = ft_vectoradd(color, ft_vectormulti(hit->object->color, phong_term));
+	color = ft_vectoradd(color, ft_vectormulti(light->color, phong_term));
 
 //	printf("Intensity : %.2f\n", light->intensity);
 	color.x = color.x * light->color.x * light->intensity;

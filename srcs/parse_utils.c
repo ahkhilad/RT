@@ -1,5 +1,14 @@
 #include "rtv1.h"
 
+char  *strcmptable(const char *str, char **tab)
+{
+    while(*tab && !ft_strequ(str,*tab))
+    {
+        tab++;
+    }
+    return (*tab);
+}
+
 void ft_strsplit_free(char ***tab)
 {
     int     i;
@@ -20,16 +29,42 @@ int      ft_strsplit_len(char **tab)
     return (i);
 }
 
-int      ft_strsplit_print(char **tab)
+void      ft_strsplit_print(char **tab)
 {
     int     i;
 
     i = -1;
-    while (tab[i++])
-        ft_putstr(tab[i]);
-    return (i);
+    while (tab[++i])
+        ft_putendl(tab[i]);
 }
 
+int     ft_split_check(char *line)
+{
+    char    **tab;
+    int     i;
+    
+    tab = ft_strsplit(line, '\n');
+    if (!strcmptable(tab[0],(char *[]){ELEMENTS, NULL}))
+    {
+        return (0);
+    } 
+    i = -1;
+    while (tab[++i])
+    {
+        if (tab[i] && ft_strequ(tab[i], ";"))
+        {
+            if (!tab[i+1] || !strcmptable(tab[i + 1],(char *[]){ELEMENTS, NULL}))
+            {
+                return (0);
+            }   
+            else
+                continue ;
+        }
+        else
+            continue ;
+    }
+    return (1);
+}
 
 static void	converting_base(char *str, t_base *v)
 {

@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:31:07 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/10/10 21:56:36 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:18:32 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 # define WIN_W 1280
 # define WIN_H 720
+
+# define ELEMENTS "camera", "light", "sphere", "plane", "cone", "cylinder"
 
 //# define PI 3.14159265358979323846
 
@@ -155,7 +157,8 @@ void            ft_light_clear(t_light **lst);
 
 void        ft_strsplit_free(char ***tab);
 int         ft_strsplit_len(char **tab);
-int         ft_strsplit_print(char **tab);
+void        ft_strsplit_print(char **tab);
+int         ft_split_check(char *line);
 int		    ft_special_atoi_base(char *str);
 t_vec       vect_from_hexa(int rgb);
 t_vec       string_to_vect(char *str);
