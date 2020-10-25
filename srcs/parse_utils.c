@@ -38,11 +38,35 @@ void      ft_strsplit_print(char **tab)
         ft_putendl(tab[i]);
 }
 
+int     ft_check_empty_lines(char *line)
+{
+    int     i;
+
+    if (line[0] == '\n')
+        return (0);
+    i = -1;
+    while (line[++i])
+    {
+        if (line[i] && line[i] == '\n')
+        {
+            if (!line[i + 1] || line[i + 1] == '\n')
+                return (0);
+        }
+    }
+    return (1);
+}
+
 int     ft_split_check(char *line)
 {
     char    **tab;
     int     i;
     
+    //ft_putstr(line);
+    //ft_putnbr(ft_check_empty_lines(line));
+    //ft_putchar('\n');
+    //exit (0);
+    if (!ft_check_empty_lines(line))
+        return (0);
     tab = ft_strsplit(line, '\n');
     if (!strcmptable(tab[0],(char *[]){ELEMENTS, NULL}))
     {
@@ -60,8 +84,6 @@ int     ft_split_check(char *line)
             else
                 continue ;
         }
-        else
-            continue ;
     }
     return (1);
 }

@@ -14,7 +14,7 @@ t_cam     ft_camera_create(t_vec pos, t_vec at, t_vec vup, float vfov)
     half_height = tanf(theta / 2.0);
     half_width = ((float)WIN_W / (float)WIN_H) * half_height;
     cam.forward = ft_normalize(ft_vectorsub(pos, at)); // distance between the lookat and the cam pos//
-    cam.u = ft_normalize(ft_crossproduct(vup, cam.forward)); // u is the width of the cam plane.. vup is the vector mtwazi m3a y axis dyal camera //
+    cam.u = ft_normalize(ft_crossproduct(vup, cam.forward)); // u is the width of the cam plane.. vup is the vector mtwazi m3a y axis dyal world (view up) //
     cam.v = ft_crossproduct(cam.forward, cam.u); // v is the height of the cam plane//
     cam.lower_left_corner = ft_vectoradd(ft_vectormulti(cam.u, half_width), ft_vectormulti(cam.v, half_height));
     cam.lower_left_corner = ft_vectoradd(cam.lower_left_corner, cam.forward);
