@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/12/17 18:41:35 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/12/17 20:02:27 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,9 @@ int		ellipsoid_intersect(t_object *ellipsoid, t_ray *ray, float *tmin)
 	// exit(0);
 	a1 = 2.0 * ellipsoid->distance * ft_dotproduct(ray->direction, ellipsoid->axis);
 	a2 = powf(r, 2.0) + (2.0 * ellipsoid->distance * ft_dotproduct(x, ellipsoid->axis)) - ellipsoid->distance;
-	a = ft_dotproduct(ft_vectormulti(ray->direction, 4.0 * powf(r, 2.0)), ray->direction) - powf(a1, 2.0);
-	b = 2.0 * ft_dotproduct(ft_vectormulti(ray->direction, (4.0 * pow(r, 2.0))), x) - (a1 * a2);
-	c = ft_dotproduct(ft_vectormulti(x, (4.0 * powf(r, 2.0))), x) - powf(a2, 2.0);
+	a = (ft_dotproduct(ray->direction, ray->direction) * 4.0 * powf(r, 2.0)) - powf(a1, 2.0);
+	b = 2.0 * ((ft_dotproduct(ray->direction, x) * 4.0 * powf(r, 2.0)) - (a1 * a2));
+	c = (ft_dotproduct(x, x) * 4.0 * powf(r, 2.0)) - powf(a2, 2.0);
 	delta = (b * b) - (4.0 * a * c);
 	if (delta < 0)
 		return (0);
@@ -154,7 +154,7 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 	//(void)ray;
 	t_vec	x;
 	t_vec	cmid;
-	t_vec	rn;
+	t_vec	cr;
 	float	m;
 	float	k;
 	float	a;
@@ -186,12 +186,12 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 		x = ft_vectorsub(ray->source, hit->object->pos);
 		r = ft_magnitude(ft_vectorsub(ray->source, hit->object->pos)) + ft_magnitude(ft_vectorsub(ray->source,(ft_vectoradd(hit->object->pos, ft_vectormulti(hit->object->axis, hit->object->distance)))));
 		a1 = 2.0 * hit->object->distance * ft_dotproduct(ray->direction,hit->object->axis);
-		a2 = powf(r, 2.0) + (2.0 * hit->object->distance * ft_dotproduct(x, hit->object->axis) - hit->object->distance);
-		a = ft_dotproduct(ft_vectormulti(ray->direction, 4.0 * powf(r, 2.0)), ray->direction) - powf(a1, 2.0);
-		b = 2.0 * ft_dotproduct(ft_vectormulti(ray->direction, (4.0 * pow(r, 2.0))), x) - (a1 * a2);
+		a2 = powf(r, 2.0) + (2.0 * hit->object->distance * ft_dotproduct(x, hit->object->axis)) - hit->object->distance;
+		a = (ft_dotproduct(ray->direction, ray->direction) * 4.0 * powf(r, 2.0)) - powf(a1, 2.0);
+		b = 2.0 * ((ft_dotproduct(ray->direction, x) * 4.0 * powf(r, 2.0)) - (a1 * a2));
 		cmid = ft_vectoradd(hit->object->pos, ft_vectormulti(hit->object->axis, (hit->object->distance / 2.0)));
-		rn = ft_vectorsub(hit->p, cmid);
-		hit->n = ft_normalize(ft_vectorsub(rn, ft_vectormulti(ft_vectormulti(hit->object->axis, (powf(1.0 - b, 2.0)/powf(a, 2.0))), ft_dotproduct(rn, hit->object->axis))));
+		cr = ft_vectorsub(ray->source, cmid);
+		hit->n = ft_normalize(ft_vectorsub(cr, ft_vectormulti(hit->object->axis, ((1 - powf(b, 2.0)) / powf(a, 2.0) * ft_dotproduct(cr, hit->object->axis)))));
 	}
 }
 
