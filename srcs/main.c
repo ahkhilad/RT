@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 21:42:11 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/10/20 17:40:50 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/12/17 18:41:35 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ int sphere_intersect(t_object *sphere, t_ray *ray, float *tmin)
 	t_vec x;
 	float a, b, c, delta;
 	float t1, t2;
-	float t;
 	
-	t = INFINITY;
 	x = ft_vectorsub(ray->source, sphere->pos);
 	a = ft_dotproduct(ray->direction, ray->direction);
 	b = 2.0 * ft_dotproduct(ray->direction, x);
@@ -54,10 +52,8 @@ int		plane_intersect(t_object *plane, t_ray *ray, float *tmin)
 	t_vec	x;
 	float	a;
 	float	b;
-	float	t;
 	float	t1;
-
-	t = INFINITY;
+	
 	x = ft_vectorsub(ray->source, plane->pos);
 	a = -1.0 * ft_dotproduct(x, plane->normal);
 	b = ft_dotproduct(ray->direction, plane->normal);
@@ -79,11 +75,9 @@ int		cylinder_intersect(t_object *cylinder, t_ray *ray, float *tmin)
 	float	b;
 	float	c;
 	float	delta;
-	float	t;
 	float	t1;
 	float	t2;
-
-	t = INFINITY;
+	
 	x = ft_vectorsub(ray->source, cylinder->pos);
 	a = ft_dotproduct(ray->direction, ray->direction) - powf(ft_dotproduct(ray->direction, cylinder->axis), 2.0);
 	b = 2.0 * (ft_dotproduct(ray->direction, x) - (ft_dotproduct(ray->direction, cylinder->axis) * ft_dotproduct(x, cylinder->axis)));
@@ -105,11 +99,9 @@ int		cone_intersect(t_object *cone, t_ray *ray, float *tmin)
 	float	b;
 	float	c;
 	float	delta;
-	float	t;
 	float	t1;
 	float	t2;
-
-	t = INFINITY;
+	
 	x = ft_vectorsub(ray->source, cone->pos);
 	k = tanf(deg_to_rad(cone->angle) / 2.0);
 	a = ft_dotproduct(ray->direction, ray->direction) - (1.0 + (k * k)) * powf(ft_dotproduct(ray->direction, cone->axis), 2.0);
@@ -124,13 +116,52 @@ int		cone_intersect(t_object *cone, t_ray *ray, float *tmin)
 	return (ft_min_ray(t1, t2, tmin));
 }
 
+int		ellipsoid_intersect(t_object *ellipsoid, t_ray *ray, float *tmin)
+{
+	t_vec	x;
+	float	r;
+	float	a;
+	float	a1;
+	float	a2;
+	float	b;
+	float	c;
+	float	delta;
+	float	t1;
+	float	t2;
+	
+	x = ft_vectorsub(ray->source, ellipsoid->pos);
+	r = ft_magnitude(ft_vectorsub(ray->source, ellipsoid->pos)) + ft_magnitude(ft_vectorsub(ray->source,(ft_vectoradd(ellipsoid->pos, ft_vectormulti(ellipsoid->axis, ellipsoid->distance)))));
+	// printf("%.6f\n", ellipsoid->axis.x);
+	// printf("%.6f\n", ellipsoid->axis.y);
+	// printf("%.6f\n", ellipsoid->axis.z);
+	// exit(0);
+	a1 = 2.0 * ellipsoid->distance * ft_dotproduct(ray->direction, ellipsoid->axis);
+	a2 = powf(r, 2.0) + (2.0 * ellipsoid->distance * ft_dotproduct(x, ellipsoid->axis)) - ellipsoid->distance;
+	a = ft_dotproduct(ft_vectormulti(ray->direction, 4.0 * powf(r, 2.0)), ray->direction) - powf(a1, 2.0);
+	b = 2.0 * ft_dotproduct(ft_vectormulti(ray->direction, (4.0 * pow(r, 2.0))), x) - (a1 * a2);
+	c = ft_dotproduct(ft_vectormulti(x, (4.0 * powf(r, 2.0))), x) - powf(a2, 2.0);
+	delta = (b * b) - (4.0 * a * c);
+	if (delta < 0)
+		return (0);
+	delta = sqrtf(delta);
+	t1 = (-b + delta) / (2 * a);
+	t2 = (-b - delta) / (2 * a);
+	return (ft_min_ray(t1, t2, tmin));
+}
+
 void	ft_compute_normals(t_hit *hit, t_ray *ray)
 {
 	//(void)ray;
 	t_vec	x;
+	t_vec	cmid;
+	t_vec	rn;
 	float	m;
 	float	k;
 	float	a;
+	float	a1;
+	float	a2;
+	float	b;
+	float	r;
 	
 	if (hit->object->type == SPHERE)
 		hit->n = ft_normalize(ft_vectorsub(hit->p, hit->object->pos));
@@ -149,6 +180,18 @@ void	ft_compute_normals(t_hit *hit, t_ray *ray)
 		k = tanf(deg_to_rad(hit->object->angle) / 2.0);
 		a = m * k * k;
 		hit->n = ft_normalize(ft_vectorsub(ft_vectorsub(hit->p, hit->object->pos), ft_vectormulti(hit->object->axis, ((1.0 + (k * k)) * m))));
+	}
+	else if (hit->object->type == ELLIPSOID)
+	{
+		x = ft_vectorsub(ray->source, hit->object->pos);
+		r = ft_magnitude(ft_vectorsub(ray->source, hit->object->pos)) + ft_magnitude(ft_vectorsub(ray->source,(ft_vectoradd(hit->object->pos, ft_vectormulti(hit->object->axis, hit->object->distance)))));
+		a1 = 2.0 * hit->object->distance * ft_dotproduct(ray->direction,hit->object->axis);
+		a2 = powf(r, 2.0) + (2.0 * hit->object->distance * ft_dotproduct(x, hit->object->axis) - hit->object->distance);
+		a = ft_dotproduct(ft_vectormulti(ray->direction, 4.0 * powf(r, 2.0)), ray->direction) - powf(a1, 2.0);
+		b = 2.0 * ft_dotproduct(ft_vectormulti(ray->direction, (4.0 * pow(r, 2.0))), x) - (a1 * a2);
+		cmid = ft_vectoradd(hit->object->pos, ft_vectormulti(hit->object->axis, (hit->object->distance / 2.0)));
+		rn = ft_vectorsub(hit->p, cmid);
+		hit->n = ft_normalize(ft_vectorsub(rn, ft_vectormulti(ft_vectormulti(hit->object->axis, (powf(1.0 - b, 2.0)/powf(a, 2.0))), ft_dotproduct(rn, hit->object->axis))));
 	}
 }
 
@@ -319,6 +362,16 @@ int		raycast(t_object *lst, t_ray *raw, t_hit *hit)
 					save = ray;
 				}
 		}
+		if (p->type == ELLIPSOID)
+		{
+			if (ellipsoid_intersect(p, &ray, &t))
+				if (hit->t > t)
+				{
+					hit->t = t;
+					hit->object = p;
+					save = ray;
+				}
+		}
 		p = p->next;
 	}
 	if (hit->object == NULL)
@@ -364,6 +417,12 @@ int 	shadow_cast(t_object *lst, t_ray *ray, float *tmin)
 		else if (p->type == CONE)
 		{
 			if (cone_intersect(p, &ra, &t))
+				if (t < *tmin)
+					return (1);
+		}
+		else if (p->type == ELLIPSOID)
+		{
+			if (ellipsoid_intersect(p, &ra, &t))
 				if (t < *tmin)
 					return (1);
 		}

@@ -11,6 +11,7 @@ t_object        *ft_object_new(t_object o)
         new->trans = o.trans;
         new->rot = o.rot;
         new->radius = o.radius;
+        new->distance = o.distance;
         new->angle = o.angle;
         new->axis = o.axis;
         new->normal = o.normal;

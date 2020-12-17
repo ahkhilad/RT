@@ -6,7 +6,7 @@
 /*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:31:07 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/10/21 11:18:32 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/12/13 16:14:45 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define WIN_W 1280
 # define WIN_H 720
 
-# define ELEMENTS "camera", "light", "sphere", "plane", "cone", "cylinder"
+# define ELEMENTS "camera", "light", "sphere", "plane", "cone", "cylinder", "ellipsoid"
 
 //# define PI 3.14159265358979323846
 
@@ -63,7 +63,7 @@ typedef struct          s_ray
 
 typedef enum e_type
 {
-    NONE, SPHERE = 10, PLANE, CONE, CYLINDER
+    NONE, SPHERE = 10, PLANE, CONE, CYLINDER, ELLIPSOID
 }           t_type;
 
 
@@ -76,6 +76,7 @@ typedef struct          s_object
     t_vec               color;
 
     float               radius;
+    float               distance;
     float               angle;
     t_vec               normal;
     t_vec               axis;
@@ -173,6 +174,8 @@ void        ft_parse_sphere(t_mx *v, char **token);
 void        ft_parse_plane(t_mx *v, char **token);
 void        ft_parse_cone(t_mx *v, char **token);
 void        ft_parse_cylinder(t_mx *v, char **token);
+void        ft_parse_ellipsoid(t_mx *v, char **token);
+
 void        ft_parse_light(t_mx *v, char **token);
 
 void        ft_parse_camera(t_mx *v, char **token);

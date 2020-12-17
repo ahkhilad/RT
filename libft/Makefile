@@ -6,7 +6,7 @@
 #    By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/30 13:44:46 by ahkhilad          #+#    #+#              #
-#    Updated: 2020/06/18 01:27:54 by ahkhilad         ###   ########.fr        #
+#    Updated: 2020/12/13 18:39:48 by ahkhilad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC = ft_memcpy.c ft_striteri.c ft_memdel.c ft_strjoin.c ft_atoi.c \
 
 CC = gcc
 
+INC = libft.h
+
 CFLAG = -Wextra -Wall -Werror
 
 EXEC = gcc $(CFLAG) #-I libft.h
@@ -37,7 +39,7 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(INC)
 	$(EXEC) -c $(SRC)
 	ar rc  $(NAME) $(OBJ)
 	ranlib $(NAME)

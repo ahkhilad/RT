@@ -88,6 +88,28 @@ void    ft_parse_cylinder(t_mx *v, char **token)
     ft_object_push(&v->objects, ft_object_new(object));
 }
 
+void    ft_parse_ellipsoid(t_mx *v, char **token)
+{
+    t_object    object;
+    int         len;
+    
+    ft_bzero(&object, sizeof(t_object));
+    object.type = ELLIPSOID;
+    len = ft_strsplit_len(token);
+    if (len > 1 && token[1])
+        object.pos = string_to_vect(token[1]);
+    if (len > 2 && token[2])
+        object.distance = ft_atof(token[2]);
+    if (len > 3 && token[3])
+        object.axis = string_to_vect(token[3]);
+    if (len > 4 && token[4])
+        object.rot = string_to_vect(token[3]);
+    if (len > 5 && token[5])
+        object.trans = string_to_vect(token[4]);
+    if (len > 6 && token[6])
+        object.color = vect_from_hexa(ft_special_atoi_base(token[5]));
+    ft_object_push(&v->objects, ft_object_new(object));
+}
 
 void    ft_parse_light(t_mx *v, char **token)
 {

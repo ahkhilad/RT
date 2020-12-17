@@ -6,7 +6,7 @@
 #    By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/06 14:38:16 by ahkhilad          #+#    #+#              #
-#    Updated: 2020/10/21 09:44:11 by ahkhilad         ###   ########.fr        #
+#    Updated: 2020/12/13 18:42:03 by ahkhilad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS = ./srcs/main.c ./srcs/parser.c ./srcs/launch.c \
 
 #SRCS = ./srcs/main1.c ./srcs/vec2.c ./srcs/vec1.c
 
-INC = rtv1.h
+INC = ./srcs/rtv1.h ./libft/libft.h ./linearlib/linear_alg.h
 
 CC = gcc
 
@@ -31,15 +31,13 @@ CFLAGS = -Wall -Wextra -Werror
 
 MLXFLAGS = -lmlx -lXext -lX11 -lm -lbsd
 
-EXEC = gcc -g $(CFLAGS) #$(MLXFLAGS) #-lmlx -framework OpenGL -framework AppKit
-
 OBJ = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(OBJ): $(SRCS)
+$(OBJ): $(SRCS) $(INC)
 	@echo "\033[2;33m"
-	gcc -c $(SRCS)
+	gcc $(CFLAGS) -c $(SRCS)
 	mv *.o ./srcs/
 	@echo "\033[0m"
 
@@ -55,7 +53,7 @@ $(LINALG):
 
 $(NAME): $(OBJ) $(LFT) $(LINALG)
 	@echo "\033[2;33m"
-	$(EXEC) $^ -o $@ $(MLXFLAGS)
+	$(CC) $^ -o $@ $(MLXFLAGS)
 	@echo "\033[0m"
 	@echo "\033[32;3mAll Set !\n\033[0m"
 

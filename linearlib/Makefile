@@ -6,7 +6,7 @@
 #    By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 19:50:48 by ahkhilad          #+#    #+#              #
-#    Updated: 2020/06/18 01:28:15 by ahkhilad         ###   ########.fr        #
+#    Updated: 2020/12/13 18:41:00 by ahkhilad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(INC)
 	$(EXEC) -c $(SRC)
 	ar rc  $(NAME) $(OBJ)
 	ranlib $(NAME)

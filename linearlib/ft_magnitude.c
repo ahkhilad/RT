@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_magnitude.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahkhilad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahkhilad <ahkhilad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 19:52:30 by ahkhilad          #+#    #+#             */
-/*   Updated: 2020/01/18 20:00:43 by ahkhilad         ###   ########.fr       */
+/*   Updated: 2020/12/17 17:58:14 by ahkhilad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ float		ft_magnitude(t_vec v)
 	c.x = v.x * v.x;
 	c.y = v.y * v.y;
 	c.z = v.z * v.z;
-	return (sqrt(c.x + c.y + c.z));
+	return (sqrtf(c.x + c.y + c.z));
 }
